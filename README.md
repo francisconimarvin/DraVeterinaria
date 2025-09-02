@@ -1,6 +1,2 @@
 # DraVeterinaria
-Trabajo semestral: Crear una página para la Dra. Ramírez, funcional, basada en los requerimientos que ella considera esenciales para el funcionamiento de la misma.
-Principales carpetas para trabajar:
----------- frontend
----------- backend
----------- database
+Trabajo semestral: Crear una página para la Dra. Ramírez, funcional, basada en los requerimientos que ella considera esenciales para el funcionamiento de la misma. 
