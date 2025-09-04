@@ -1,0 +1,186 @@
+/* Reset y box-sizing solo para el footer */
+.footer-custom *, 
+.footer-custom *:before, 
+.footer-custom *:after {
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Tipografía y colores del footer */
+.footer-custom {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #fff;
+    background-color: #333;
+    padding: 50px 0;
+}
+
+/* Grid Container */
+.footer-custom .grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+@media (min-width: 48rem) {
+    .footer-custom .grid-container { padding: 0 20px; }
+}
+
+/* Grid flex */
+.footer-custom .grid-x {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+}
+.footer-custom .cell {
+    display: block;
+    width: 100%;
+}
+
+/* Responsive cells */
+@media (min-width: 20rem) {
+    .footer-custom .cell.small-6 { width: 50%; }
+    .footer-custom .cell.small-12 { width: 100%; }
+}
+@media (min-width: 48rem) {
+    .footer-custom .cell.medium-4 { width: 33.3333%; }
+}
+
+.footer-logo-text p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+}
+/* Footer Text */
+.footer-custom .footer-text p {
+    font-size: 14px;
+    color: #7e7e7e;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Widget heading */
+.footer-custom .footer-widget-heading h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+}
+.footer-custom .footer-widget-heading h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    height: 2px;
+    width: 50px;
+    background: #ff5e14;
+}
+
+/* Links */
+.footer-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.footer-custom ul li {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+}
+.footer-custom ul li a {
+    color: #878787;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+.footer-custom ul li a:hover {
+    color: #ff5e14;
+}
+
+/* Redes sociales */
+.footer-custom .footer-social-icon span {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.footer-custom .footer-social-icon a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+.footer-custom .facebook-bg { background: #3B5998; }
+.footer-custom .twitter-bg { background: #55ACEE; }
+.footer-custom .google-bg { background: #DD4B39; }
+
+/* Formulario de suscripción */
+.footer-custom .subscribe-form {
+    position: relative;
+    margin-top: 15px;
+}
+
+.footer-custom .subscribe-form input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #2e2e2e;
+    background: #2e2e2e;
+    color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.footer-custom .subscribe-form button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    background: #ff5e14;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.footer-custom .subscribe-form button:hover {
+    background: #ff7f3f;
+}
+
+.footer-custom .subscribe-form button i {
+    font-size: 18px;
+}
+
+
+/* Copyright */
+.footer-custom .copyright-area {
+    background: #202020;
+    padding: 15px 0;
+    margin-top: 30px;
+}
+.footer-custom .copyright-text {
+    font-size: 14px;
+    color: #878787;
+    text-align: center;
+}
+.footer-custom .copyright-text a {
+    color: #ff5e14;
+    text-decoration: none;
+}
+
+/* Responsive clearfix for floats */
+.footer-custom ul::after {
+    content: "";
+    display: table;
+    clear: both;
+}
