@@ -57,7 +57,7 @@
 }
 /* Footer Text */
 .footer-custom .footer-text p {
-    font-size: 14px;
+    font-size: 25px;
     color: #7e7e7e;
     line-height: 1.6;
     margin-bottom: 15px;
@@ -102,31 +102,65 @@
 }
 
 /* Redes sociales */
+/* Estilo del contenedor de redes */
 .footer-custom .footer-social-icon span {
     display: block;
     font-weight: 700;
     margin-bottom: 10px;
 }
+
+/* Botones de redes sociales */
 .footer-custom .footer-social-icon a {
-    display: inline-block;
+    display: inline-flex;            /* Para centrar el ícono vertical y horizontal */
+    justify-content: center;
+    align-items: center;
     width: 40px;
     height: 40px;
-    line-height: 38px;
-    text-align: center;
     border-radius: 50%;
     margin-right: 10px;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
+    transition: transform 0.3s, opacity 0.3s; /* Animación al pasar el mouse */
 }
-.footer-custom .facebook-bg { background: #3B5998; }
-.footer-custom .twitter-bg { background: #55ACEE; }
-.footer-custom .google-bg { background: #DD4B39; }
 
+/* Hover efecto */
+.footer-custom .footer-social-icon a:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+/* Colores de fondo */
+.footer-custom .facebook-bg { background: #3B5998; }
+.footer-custom .instagram-bg { background: #C13584; } /* Color oficial de Instagram */
+.footer-custom .twitter-bg { background: #55ACEE; }
 /* Formulario de suscripción */
 .footer-custom .subscribe-form {
     position: relative;
     margin-top: 15px;
 }
+.footer-custom .footer-social-icon a.social-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #000; /* se puede cambiar según red */
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.footer-custom .footer-social-icon a.social-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+.footer-custom .footer-social-icon img.social-logo {
+    width: 60px;
+    height: 35px;
+    object-fit: contain;
+}
+
 
 .footer-custom .subscribe-form input {
     width: 100%;
