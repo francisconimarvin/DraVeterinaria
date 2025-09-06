@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // CARRUSEL
 let slideIndex = 1;
-let slideTimer; // para guardar el intervalo automático
+let slideTimer; // para auto-play
 showSlides(slideIndex);
-startAutoSlide(); // iniciar auto-play
+startAutoSlide();
 
 function plusSlides(n) {
   showSlides(slideIndex += n);
-  resetAutoSlide(); // reinicia el temporizador al cambiar manualmente
+  resetAutoSlide();
 }
 
 function currentSlide(n) {
@@ -43,41 +43,36 @@ function currentSlide(n) {
 }
 
 function showSlides(n) {
-  let i;
   let slides = document.getElementsByClassName("mySlides");
   let dots = document.getElementsByClassName("dot");
 
   if (n > slides.length) { slideIndex = 1 }    
   if (n < 1) { slideIndex = slides.length }
 
-  for (i = 0; i < slides.length; i++) {
+  for (let i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
   }
-  for (i = 0; i < dots.length; i++) {
+  for (let i = 0; i < dots.length; i++) {
     dots[i].className = dots[i].className.replace(" active", "");
   }
 
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
+
+  // 🔹 CAMBIO PARA EL FONDO BLUR
+  const activeImg = slides[slideIndex-1].querySelector("img").src;
+  document.querySelector(".slideshow-section").style.setProperty('--bg-img', `url(${activeImg})`);
+  document.querySelector(".slideshow-section::before"); // opcional, depende de cómo uses CSS
 }
 
-// --- Funciones para auto play ---
+// Auto-play
 function startAutoSlide() {
-  slideTimer = setInterval(() => {
-    plusSlides(1);
-  }, 4000); // cada 4 segundos
+  slideTimer = setInterval(() => { plusSlides(1); }, 4000);
 }
+function stopAutoSlide() { clearInterval(slideTimer); }
+function resetAutoSlide() { stopAutoSlide(); startAutoSlide(); }
 
-function stopAutoSlide() {
-  clearInterval(slideTimer);
-}
-
-function resetAutoSlide() {
-  stopAutoSlide();
-  startAutoSlide();
-}
-
-// --- Pausar al hacer hover ---
+// Pausar al hacer hover
 const carousel = document.querySelector(".slideshow-container");
-carousel.addEventListener("mouseenter", stopAutoSlide); // pausa con hover
-carousel.addEventListener("mouseleave", startAutoSlide); // reanuda al salir
+carousel.addEventListener("mouseenter", stopAutoSlide);
+carousel.addEventListener("mouseleave", startAutoSlide);
