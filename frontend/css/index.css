@@ -76,7 +76,7 @@
 }
  .navigation ul li {
 	 position: relative;
-	 height: auto;
+	 height: 20vh;
 	 border-bottom: 1px solid rgba(68, 68, 68, 0.1);
 }
  .navigation a {
