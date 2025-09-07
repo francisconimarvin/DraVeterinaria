@@ -280,7 +280,7 @@ $('#btnRegistrar').addEventListener('click', (e) => {
   // Normalizar rut antes de validarlo
   rut = normalizarRut(rut);
 
-  // ⚠️ Validaciones
+  // Validaciones
   if (!nombre || !rut || !telefono || !correo) {
     $('#outClientes').textContent = ' Todos los campos son obligatorios';
     return;
