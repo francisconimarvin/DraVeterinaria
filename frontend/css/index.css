@@ -29,14 +29,14 @@
 	 left: 0;
 	 width: 100%;
 	 padding: 15px 0;
-	 background-color: whitesmoke;
+	 background-color: rgb(232, 220, 209);
 	 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	 z-index: 9998;
 }
  .logo {
 	 position: relative;
 	 display: block;
-	 color: rgba(204, 103, 51, 1);
+	 color: black;
 	 font-size: 18px;
 	 font-weight: 400;
 	 text-decoration: none;
@@ -86,7 +86,7 @@
 	 width: 100%;
 	 height: 100%;
 	 padding: 20px;
-	 color: rgba(204, 103, 51, 1);
+	 color: rgb(6, 3, 43);
 	 font-family: 'Source Code Pro', monospace;
 	 font-size: 32px;
 	 text-decoration: none;
@@ -98,7 +98,7 @@
 	 left: 0;
 	 width: 0%;
 	 height: 100%;
-	 background-color: #cc9b33;
+	 background-color: rgb(0, 151, 178);
 	 transition: 0.25s;
 	 z-index: -1;
 }
@@ -124,7 +124,7 @@
 	 z-index: 9999;
 }
  .hamburger.is-open span {
-	 background-color: black;
+	 background-color: rgb(6, 3, 43);
 	 transition: 0.25s transform linear;
 }
  .hamburger.is-open span:first-child {
@@ -165,7 +165,7 @@
 	 display: block;
 	 width: 30px;
 	 height: 2px;
-	 background-color: rgba(204, 103, 51, 1);
+	 background-color: rgb(6, 3, 43);
 	 border-radius: 10px;
 	 transform-origin: center center;
 	 transition: 0.25s transform linear;
@@ -211,9 +211,10 @@
 	 animation: backgrounder 30s linear infinite;
 }
  section:nth-of-type(2) {
-	 background-color: rgba(204, 155, 51, 1);
+	 background-color: rgb(232, 220, 209);
 	 animation: backgrounder 30s linear infinite;
 }
+
  section:nth-of-type(3) {
 	 background-color: rgba(201, 204, 51, 1);
 	 animation: backgrounder 30s linear infinite;
@@ -244,7 +245,7 @@
 	 color: white;
 }
  .grid-container {
-	 max-width: 1200px;
+	 max-width: 1fr;
 	 margin: 0 auto;
 	 padding: 0 10px;
 }
@@ -494,7 +495,7 @@
 }
 .site-footer
 {
-  background-color:#26272b;
+  background-color:rgb(6, 3, 43);
   padding:45px 0 20px;
   font-size:15px;
   line-height:24px;
@@ -752,23 +753,66 @@ img { vertical-align: middle; }
 /* Animación fade */
 .fade { animation: fade 1.5s; }
 @keyframes fade {
-  from { opacity: 0.4; }
+  from { opacity: 1; }
   to { opacity: 1; }
 }
 
   
-/* BLURRED */
-.slideshow-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../utilidades/imagenes/otros/img1.jpg") no-repeat center center;
-  background-size: cover;
-  filter: blur(12px);   /* desenfoque */
-  transform: scale(1.1); /* evita que se vean bordes */
-  z-index: -1; /* queda detrás del carrusel */
+.hover-grilla {
+  transition: background-color 0.3s;
 }
 
+.hover-grilla:hover {
+  background-color: rgb(0, 151, 178)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+GATO
+*/
+
+
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:800);
+
+#world{
+	position: absolute;
+	width:100%;
+	height: 100%;
+	background-color: #6ecccc;
+  overflow:hidden;
+}
