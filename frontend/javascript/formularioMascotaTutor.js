@@ -112,3 +112,118 @@ form.addEventListener("submit", (e) => {
 
   form.reset();
 });
+
+
+// Función para seleccionar rápido
+const $ = (sel) => document.querySelector(sel);
+
+const clientes = [];
+
+// Función para validar correo
+function validarCorreo(correo) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(correo);
+}
+
+// Función para validar RUT chileno
+function validarRut(rut) {
+  rut = rut.replace(/\./g, '').replace(/-/g, '').toUpperCase();
+
+  if (!/^[0-9]+[0-9K]$/.test(rut)) return false;
+
+  const cuerpo = rut.slice(0, -1);
+  const dv = rut.slice(-1);
+
+  let suma = 0;
+  let multiplo = 2;
+
+  for (let i = cuerpo.length - 1; i >= 0; i--) {
+    suma += Number(cuerpo[i]) * multiplo;
+    multiplo = multiplo < 7 ? multiplo + 1 : 2;
+  }
+
+  const dvEsperado = 11 - (suma % 11);
+  const dvFinal = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  return dv === dvFinal;
+}
+
+// Normalizar RUT (eliminar puntos y guion siempre)
+function normalizarRut(rut) {
+  return rut.replace(/\./g, '').replace(/-/g, '').toUpperCase();
+}
+
+// Renderizar lista de clientes
+function renderClientes() {
+  const lista = $('#outClientes');
+  lista.innerHTML = ''; // limpiar antes de volver a dibujar
+
+  clientes.forEach((c, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${c.nombre} | ${c.rut} | ${c.telefono} | ${c.correo} `;
+
+    // Botón eliminar
+    const btnDel = document.createElement('button');
+    btnDel.textContent = 'Eliminar';
+    btnDel.className = 'pill';
+    btnDel.addEventListener('click', () => {
+      clientes.splice(index, 1); // eliminar del array
+      renderClientes();          // volver a pintar
+    });
+
+    li.appendChild(btnDel);
+    lista.appendChild(li);
+  });
+}
+
+// Evento botón Registrar
+$('#btnRegistrar').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const nombre = $('#nombreCli').value.trim();
+  let rut = $('#rutCli').value.trim();
+  const telefono = $('#telCli').value.trim();
+  const correo = $('#correoCli').value.trim();
+
+  // Normalizar rut antes de validarlo
+  rut = normalizarRut(rut);
+
+  // ⚠️ Validaciones
+  if (!nombre || !rut || !telefono || !correo) {
+    $('#outClientes').textContent = ' Todos los campos son obligatorios';
+    return;
+  }
+  if (!validarRut(rut)) {
+    $('#outClientes').textContent = ` El RUT "${rut}" no es válido`;
+    return;
+  }
+  if (!validarCorreo(correo)) {
+    $('#outClientes').textContent = ` El correo "${correo}" no es válido`;
+    return;
+  }
+
+  // Duplicados
+  if (clientes.some(c => c.rut === rut)) {
+    $('#outClientes').textContent = ` El RUT ${rut} ya está registrado`;
+    return;
+  }
+    if (clientes.some(c => c.telefono === telefono)) {
+    $('#outClientes').textContent = ` El telefono ${telefono} ya está registrado`;
+    return;
+  }
+  if (clientes.some(c => c.correo === correo)) {
+    $('#outClientes').textContent = ` El correo ${correo} ya está registrado`;
+    return;
+  }
+
+  // ✅ Guardar y mostrar (con RUT limpio)
+  clientes.push({ nombre, rut, telefono, correo });
+  renderClientes();
+
+  // Limpiar formulario
+  $('#nombreCli').value = '';
+  $('#rutCli').value = '';
+  $('#telCli').value = '';
+  $('#correoCli').value = '';
+});
+
