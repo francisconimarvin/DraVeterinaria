@@ -1,6 +1,4 @@
-/*
-Aquí empiezo el formulario de mascotas
-*/
+/* FORMULARIO DE MASCOTAS */
 
 // Seleccionamos el contenedor
 const contenedor = document.getElementById("contenedorMascotas");
@@ -9,21 +7,30 @@ const contenedor = document.getElementById("contenedorMascotas");
 const form = document.createElement("form");
 form.id = "formularioMascota";
 
-// Nombre
+// --- Nombre ---
 const labelNombre = document.createElement("label");
 labelNombre.textContent = "Nombre:";
+labelNombre.setAttribute("for", "nombreMascota");
+
 const inputNombre = document.createElement("input");
 inputNombre.type = "text";
 inputNombre.id = "nombreMascota";
 inputNombre.required = true;
 
-// Especie (radio buttons)
+// Mensaje de error
+const errorNombre = document.createElement("small");
+errorNombre.style.color = "red";
+
+// --- Especie (radio buttons) ---
 const fieldsetEspecie = document.createElement("fieldset");
 const legendEspecie = document.createElement("legend");
 legendEspecie.textContent = "Especie:";
 fieldsetEspecie.appendChild(legendEspecie);
 
 const especies = ["Perro", "Gato"];
+const errorEspecie = document.createElement("small");
+errorEspecie.style.color = "red";
+
 especies.forEach(especie => {
   const inputRadio = document.createElement("input");
   inputRadio.type = "radio";
@@ -40,20 +47,34 @@ especies.forEach(especie => {
   fieldsetEspecie.appendChild(labelRadio);
   fieldsetEspecie.appendChild(document.createElement("br"));
 });
+fieldsetEspecie.appendChild(errorEspecie);
 
-// Raza
+// --- Raza ---
 const labelRaza = document.createElement("label");
 labelRaza.textContent = "Raza:";
+labelRaza.setAttribute("for", "razaMascota");
+
 const inputRaza = document.createElement("input");
 inputRaza.type = "text";
 inputRaza.id = "razaMascota";
+inputRaza.required = true; // <-- obligatorio
 
-// Sexo
+// Mensaje de error raza
+const errorRaza = document.createElement("small");
+errorRaza.style.color = "red";
+
+// --- Sexo ---
 const labelSexo = document.createElement("label");
 labelSexo.textContent = "Sexo:";
+labelSexo.setAttribute("for", "sexoMascota");
+
 const selectSexo = document.createElement("select");
 selectSexo.id = "sexoMascota";
 selectSexo.required = true;
+
+const errorSexo = document.createElement("small");
+errorSexo.style.color = "red";
+
 ["", "Macho", "Hembra"].forEach(opt => {
   const option = document.createElement("option");
   option.value = opt;
@@ -61,19 +82,20 @@ selectSexo.required = true;
   selectSexo.appendChild(option);
 });
 
-// Botón
+// --- Botón ---
 const btn = document.createElement("button");
 btn.type = "submit";
 btn.textContent = "Registrar Mascota";
 
-// Lista
+// --- Lista ---
 const ulLista = document.createElement("ul");
 ulLista.id = "mascotaLista";
 
-// Agregar todos los elementos al formulario
+// --- Agregar todos los elementos al formulario ---
 form.appendChild(labelNombre);
 form.appendChild(inputNombre);
 form.appendChild(document.createElement("br"));
+form.appendChild(errorNombre);
 form.appendChild(document.createElement("br"));
 
 form.appendChild(fieldsetEspecie);
@@ -82,19 +104,89 @@ form.appendChild(document.createElement("br"));
 form.appendChild(labelRaza);
 form.appendChild(inputRaza);
 form.appendChild(document.createElement("br"));
+form.appendChild(errorRaza);
 form.appendChild(document.createElement("br"));
 
 form.appendChild(labelSexo);
 form.appendChild(selectSexo);
 form.appendChild(document.createElement("br"));
+form.appendChild(errorSexo);
+form.appendChild(document.createElement("br"));
 form.appendChild(document.createElement("br"));
 
 form.appendChild(btn);
 
-// Agregar formulario y lista al contenedor
+// --- Agregar formulario y lista al contenedor ---
 contenedor.appendChild(form);
 contenedor.appendChild(ulLista);
 
+// --- Función para agregar mascota a la lista ---
+function agregarMascota(nombre, especie, raza, sexo) {
+  const li = document.createElement("li");
+  li.textContent = `Nombre: ${nombre}, Especie: ${especie}, Raza: ${raza}, Sexo: ${sexo}`;
+
+  const btnEliminar = document.createElement("button");
+  btnEliminar.textContent = "Eliminar";
+  btnEliminar.style.marginLeft = "10px";
+  btnEliminar.addEventListener("click", () => {
+    ulLista.removeChild(li);
+  });
+
+  li.appendChild(btnEliminar);
+  ulLista.appendChild(li);
+}
+
+// --- Manejo del submit con validaciones ---
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let valido = true;
+
+  // Validar nombre
+  if (!inputNombre.value.trim()) {
+    errorNombre.textContent = "Debes ingresar el nombre de la mascota";
+    valido = false;
+  } else {
+    errorNombre.textContent = "";
+  }
+
+  // Validar especie
+  const especieSeleccionada = form.querySelector('input[name="especieMascota"]:checked');
+  if (!especieSeleccionada) {
+    errorEspecie.textContent = "Debes seleccionar la especie";
+    valido = false;
+  } else {
+    errorEspecie.textContent = "";
+  }
+
+  // Validar raza
+  if (!inputRaza.value.trim()) {
+    errorRaza.textContent = "Debes ingresar la raza de la mascota";
+    valido = false;
+  } else {
+    errorRaza.textContent = "";
+  }
+
+  // Validar sexo
+  if (!selectSexo.value) {
+    errorSexo.textContent = "Debes seleccionar el sexo";
+    valido = false;
+  } else {
+    errorSexo.textContent = "";
+  }
+
+  if (!valido) return;
+
+  // Agregar mascota a la lista
+  agregarMascota(inputNombre.value, especieSeleccionada.value, inputRaza.value, selectSexo.value);
+
+  // Limpiar formulario
+  form.reset();
+});
+
+
+
+/* FORMULARIO DE TUTOR */
 // --- Lógica del formulario ---
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -188,7 +280,7 @@ $('#btnRegistrar').addEventListener('click', (e) => {
   // Normalizar rut antes de validarlo
   rut = normalizarRut(rut);
 
-  // ⚠️ Validaciones
+  // Validaciones
   if (!nombre || !rut || !telefono || !correo) {
     $('#outClientes').textContent = ' Todos los campos son obligatorios';
     return;
