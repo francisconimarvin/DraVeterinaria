@@ -24,8 +24,7 @@ const Navbar = () => {
                 <a href="#Header" className='cursor-pointer hover:text-gray-400'>Servicios</a>
                 <a href="#Header" className='cursor-pointer hover:text-gray-400'>Contacto</a>
             </ul>
-            <img className='md-hidden w-7 cursor-pointer' src={assets.logoMenu} alt="" />
-            <img onClick={()=> setShowMobileMenu(true)} src={assets.menuLogo} alt="" className='md:hidden w-7 cursor-pointer'/>
+            <img onClick={()=> setShowMobileMenu(true)} src={assets.logoMenu} alt="" className='md:hidden w-7 cursor-pointer'/>
         </div>
 
     </div>
