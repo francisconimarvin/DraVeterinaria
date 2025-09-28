@@ -1,21 +1,264 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página</title>
+  <meta charset="UTF-8">
+  <title>Dra. Veterinaria</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro:700'>
+<link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-    <header>
-        <h1>Encabezado</h1>
-    </header>
+<!-- partial:index.partial.html -->
+<header class="top-bar">
+  <div class="grid-container full">
+    <div class="grid-x align-middle">
+      <div class="cell small-11"><a class="logo" href="#"> <i class="fas fa-weight-hanging"> </i><span>Médico Veterinario Verónica Ramírez</span></a></div>
+      <div class="cell small-1 nav-menu">
+        <button class="hamburger"><span></span><span></span><span></span></button>
+        <nav class="navigation">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre mí</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="../html/formularioMascotaTutor.html">Registro</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <main>
-        <p>Este es el contenido principal.</p>
-    </main>
+<section class = "slideshow-section">
+  
+    <div class="slideshow-container">
 
-    <footer>
-        <p>© 2025 Mi Página - Todos los derechos reservados</p>
-    </footer>
+    <div class="mySlides fade">
+      <div class="numbertext">1 / 4</div>
+      <img src="../utilidades/imagenes/otros/img1.png" style="width:100%">
+      <div class="caption-btn">
+        <a href="masInfo.html" class="info-btn">Más información</a>
+      </div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 4</div>
+      <img src="../utilidades/imagenes/otros/img2.png" style="width:100%">
+      <div class="caption-btn">
+        <a href="masInfo.html" class="info-btn">Más información</a>
+      </div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 4</div>
+      <img src="../utilidades/imagenes/otros/img3.png" style="width:100%">
+      <div class="caption-btn">
+        <a href="masInfo.html" class="info-btn">Más información</a>
+      </div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">4 / 4</div>
+      <img src="../utilidades/imagenes/otros/img4.png" style="width:100%">
+      <div class="caption-btn">
+        <a href="masInfo.html" class="info-btn">Más información</a>
+      </div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+  </div>
+  <br>
+
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span> 
+    <span class="dot" onclick="currentSlide(2)"></span> 
+    <span class="dot" onclick="currentSlide(3)"></span> 
+    <span class="dot" onclick="currentSlide(4)"></span> 
+  </div>
+</section>
+
+<!-- SECCION 2: ICONOS SERVICIO -->
+<section>
+  <div class="section-heading">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          <h2 style = "color: rgb(6, 3, 43)">Servicios</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<div class="grid-container">
+  <!-- Fila superior: 3 items -->
+  <div class="grid-x grid-padding-x">
+    <div class="cell small-12 medium-4 centered-img hover-grilla">
+      <img src="../utilidades/imagenes/iconos/inyectadora.png" style="width: 250px; margin-left: 100px;">
+      <h2 style="margin-left: 150px; margin-top: 10px; color: rgb(6, 3, 43)">VACUNAS</h2>
+    </div>
+
+    <div class="cell small-12 medium-4 centered-img hover-grilla">
+      <img src="../utilidades/imagenes/iconos/examenSangre.png" style="width: 250px; margin-left: 100px;">
+      <h2 style="margin-left: 100px; margin-top: 10px; color: rgb(6, 3, 43)">EXAMENES DE SANGRE</h2>
+    </div>
+
+    <div class="cell small-12 medium-4 centered-img hover-grilla">
+      <img src="../utilidades/imagenes/iconos/certificado.png" style="width: 250px; margin-left: 200px;">
+      <h2 style="margin-left: 180px; margin-top: 10px; color: rgb(6, 3, 43)">CERTIFICADOS DE VIAJE</h2>
+    </div>
+  </div>
+
+  <!-- Fila inferior: 2 items -->
+  <div class="grid-x grid-padding-x" style="margin-top: 30px;">
+    <div class="cell small-12 medium-4 centered-img">
+      <img src="../utilidades/imagenes/iconos/perroMicroChip.png" style="width: 250px; margin-top: 100px; margin-left: 350px;">
+      <h2 style="margin-left: 400px; margin-top: 10px; color: rgb(6, 3, 43)">MICROCHIP</h2>
+    </div>
+
+    <div class="cell small-12 medium-4 centered-img">
+      <img src="../utilidades/imagenes/iconos/consuta.png" style="width: 600px; margin-top: 7px; margin-left: 300px;">
+      <h2 style="margin-left: 530px; margin-top: 10px; color: rgb(6, 3, 43)">CONSULTAS</h2>
+    </div>
+  </div>
+</div>
+
+
+
+</section>
+<!-- COMENTADO HASTA QUE SE USE 
+<section>
+  <div class="section-heading">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          <h2>Section heading 3</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell">
+        <p>Chocolate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-heading">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          <h2>Section heading 4</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell">
+        <p>Cupcake</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="section-heading">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell">
+          <h2>Section heading 5</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="grid-x grid-padding-x">
+      <div class="cell">
+        <p>Frosting</p>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+<footer class="footer-custom">
+  <div class="grid-container">
+    <div class="grid-x align-justify">
+      <!-- Logo y descripción -->
+      
+      <div class="cell small-12 medium-4">
+    
+    <div class="footer-logo-text">
+          <img src = "../utilidades/videos/3d-cat.gif">
+        </div>
+  <div class="footer-text">
+    <p>Cuidamos a tus mascotas con dedicación y tecnología.</p>
+  </div>
+</div>
+
+
+
+
+
+      <!-- Links rápidos -->
+      <div class="cell small-12 medium-4">
+        <div class="footer-widget">
+          <div class="footer-widget-heading">
+            <h3>Enlaces</h3>
+          </div>
+          <ul>
+            <li><a href="/inicio">Inicio</a></li>
+            <li><a href="/servicios">Servicios</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+            <li><a href="/nosotros">Nosotros</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="cell small-12 medium-4">
+  <div class="footer-social-icon">
+    <span>Síguenos</span>
+    <a href="https://web.facebook.com/home.php" class="social-btn facebook-bg" target="_blank" aria-label="Facebook">
+      <img src="..\utilidades\imagenes\iconos\icons8-facebook-nuevo.svg" alt="Facebook" class="social-logo">
+    </a>
+    <a href="https://www.instagram.com/" class="social-btn instagram-bg" target="_blank" aria-label="Instagram">
+      <img src="..\utilidades\imagenes\iconos\icons8-instagram.svg"alt="Instagram" class="social-logo">
+    </a>
+  </div>
+</div>
+
+        
+        <!-- Formulario de suscripción -->
+        <div class="subscribe-form mt-3">
+          <form id="formSuscripcion" class="needs-validation" novalidate>
+            <input type="email" id="emailSuscripcion" placeholder="tu correo@ejemplo.com" required>
+            <button type="submit">Suscribirse <i class="bi bi-envelope-fill"></i></button>
+          </form>
+          <div id="mensajeSuscripcion" style="margin-top:10px; color:#fff;"></div>
+        </div>
+
+    <!-- Copyright -->
+    <div class="grid-x align-center mt-4">
+      <div class="cell small-12 text-center copyright-area">
+        <p class="copyright-text">© 2025 Dr. Veterinario. Todos los derechos reservados. <a href="/privacidad">Privacidad</a> | <a href="/terminos">Términos</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script  src="../javascript/index.js"></script>
+  <script src="../javascript/landingPage.js"></script>
 </body>
 </html>
+
+
