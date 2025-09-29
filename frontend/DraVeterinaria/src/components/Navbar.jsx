@@ -16,10 +16,10 @@ const Navbar = () => {
     }, [showMobileMenu])
   return (
     <div className='absolute top-0 left-0 w-full z-10'>
-        <div className='container mx-auto flex justify-between items-center px-6 py-4 md:px-20 lg:px-32 bg-transparent'>
-            <img className='h-24 w-24 brightness-9' src={assets.logoPatita} alt="" />
-            <ul className=''>
-                <a href="#Header" className='cursor-pointer hover:text-gray-400'>Home</a>
+        <div className='container mx-auto flex justify-between items-center px-6 py-4 md:px-20 lg:px-32 bg-transparent gap-4'>
+            <img className='h-24 w-24 brightness-9 transition-transform transform hover:scale-105 cursor-pointer' src={assets.logoPatita} alt="" />
+            <ul className='hidden md:flex gap-7'>
+                <a href="#Header" className='cursor-pointer hover:text-gray-400 '>Home</a>
                 <a href="#Header" className='cursor-pointer hover:text-gray-400'>Sobre mí</a>
                 <a href="#Header" className='cursor-pointer hover:text-gray-400'>Servicios</a>
                 <a href="#Header" className='cursor-pointer hover:text-gray-400'>Contacto</a>
