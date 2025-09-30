@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Scheduling = () => {
-  const [values, setValues] = useState({
+  const [mascota, setMascota] = useState({
     especie: "",
     nombre: "",
     edad: "",
@@ -19,13 +19,21 @@ const Scheduling = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
+  // Paso actual
+  const [step, setStep] = useState(1);
+
   // Validaciones
   const errors = {
-    especie: values.especie.trim() === "" ? "La especie es obligatoria" : "",
-    nombre: values.nombre.trim() === "" ? "El nombre es obligatorio" : "",
-    edad: values.edad.trim() === "" ? "La edad es obligatoria"
-          : isNaN(Number(values.edad)) ? "La edad debe ser un número" : "",
-    antecedentes: values.antecedentes.trim() === "" ? "Debe indicar antecedentes" : ""
+    especie: mascota.especie.trim() === "" ? "La especie es obligatoria" : "",
+    nombre: mascota.nombre.trim() === "" ? "El nombre es obligatorio" : "",
+    edad:
+      mascota.edad.trim() === ""
+        ? "La edad es obligatoria"
+        : isNaN(Number(mascota.edad))
+        ? "Debe ser un número"
+        : "",
+    antecedentes:
+      mascota.antecedentes.trim() === "" ? "Indica antecedentes" : ""
   };
 
   const isValid = (field) => !errors[field];
@@ -38,40 +46,46 @@ const Scheduling = () => {
       : "border border-red-500 rounded p-2 w-full";
   };
 
-  // Handlers
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues((v) => ({ ...v, [name]: value }));
-    setTouched((t) => ({ ...t, [name]: true }));
+    setMascota((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
   const handleBlur = (e) => {
     const { name } = e.target;
-    setTouched((t) => ({ ...t, [name]: true }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
 
-    if (isValid("especie") && isValid("nombre") && isValid("edad") && isValid("antecedentes")) {
-      alert("Mascota registrada correctamente ✅\n" + JSON.stringify(values, null, 2));
-      setValues({ especie: "", nombre: "", edad: "", raza: "", antecedentes: "" });
+    if (isStepValid()) {
+      alert("Mascota registrada ✅\n" + JSON.stringify(mascota, null, 2));
+      setMascota({ especie: "", nombre: "", edad: "", raza: "", antecedentes: "" });
       setTouched({ especie: false, nombre: false, edad: false, raza: false, antecedentes: false });
       setSubmitted(false);
     }
+  };
+
+  const isStepValid = () => {
+    if (step === 1) {
+      return !errors.especie && !errors.nombre && !errors.edad;
+    }
+    return false;
   };
 
   return (
     <div className="max-w-xl mx-auto mt-32 p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-6 text-center">Registro de Mascota</h2>
       <form onSubmit={handleSubmit} noValidate className="space-y-4">
-
+        {/* Especie */}
         <div>
           <label className="block mb-1 font-medium">Especie:</label>
           <select
             name="especie"
-            value={values.especie}
+            value={mascota.especie}
             onChange={handleChange}
             onBlur={handleBlur}
             className={fieldClass("especie")}
@@ -85,12 +99,13 @@ const Scheduling = () => {
           )}
         </div>
 
+        {/* Nombre */}
         <div>
           <label className="block mb-1 font-medium">Nombre:</label>
           <input
             type="text"
             name="nombre"
-            value={values.nombre}
+            value={mascota.nombre}
             onChange={handleChange}
             onBlur={handleBlur}
             className={fieldClass("nombre")}
@@ -100,12 +115,13 @@ const Scheduling = () => {
           )}
         </div>
 
+        {/* Edad */}
         <div>
           <label className="block mb-1 font-medium">Edad:</label>
           <input
             type="text"
             name="edad"
-            value={values.edad}
+            value={mascota.edad}
             onChange={handleChange}
             onBlur={handleBlur}
             className={fieldClass("edad")}
@@ -115,23 +131,25 @@ const Scheduling = () => {
           )}
         </div>
 
+        {/* Raza */}
         <div>
           <label className="block mb-1 font-medium">Raza (opcional):</label>
           <input
             type="text"
             name="raza"
-            value={values.raza}
+            value={mascota.raza}
             onChange={handleChange}
             onBlur={handleBlur}
             className="border border-gray-300 rounded p-2 w-full"
           />
         </div>
 
+        {/* Antecedentes */}
         <div>
           <label className="block mb-1 font-medium">Antecedentes:</label>
           <textarea
             name="antecedentes"
-            value={values.antecedentes}
+            value={mascota.antecedentes}
             onChange={handleChange}
             onBlur={handleBlur}
             className={fieldClass("antecedentes")}
