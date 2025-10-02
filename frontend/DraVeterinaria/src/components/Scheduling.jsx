@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-const Scheduling = () => {
+const Scheduling = ({ step, setStep }) => {
   // -----------------------------
   // Estado Mascota
   // -----------------------------
@@ -14,13 +14,7 @@ const Scheduling = () => {
     antecedentes: ""
   });
 
-  const [touchedMascota, setTouchedMascota] = useState({
-    especie: false,
-    nombre: false,
-    edad: false,
-    raza: false,
-    antecedentes: false
-  });
+  const [touchedMascota, setTouchedMascota] = useState({});
 
   // -----------------------------
   // Estado Tutor
@@ -34,14 +28,7 @@ const Scheduling = () => {
     confirmarEmail: ""
   });
 
-  const [touchedTutor, setTouchedTutor] = useState({
-    rut: false,
-    nombre: false,
-    telefono: false,
-    direccion: false,
-    email: false,
-    confirmarEmail: false
-  });
+  const [touchedTutor, setTouchedTutor] = useState({});
 
   // -----------------------------
   // Estado Servicio
@@ -53,17 +40,11 @@ const Scheduling = () => {
     fecha: ""
   });
 
-  const [touchedServicio, setTouchedServicio] = useState({
-    tipo: false,
-    subtipo: false,
-    precio: false,
-    fecha: false
-  });
+  const [touchedServicio, setTouchedServicio] = useState({});
 
   // -----------------------------
-  // Control de pasos y envío
+  // Control envío
   // -----------------------------
-  const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
 
   // -----------------------------
@@ -101,6 +82,7 @@ const Scheduling = () => {
         : isNaN(Number(mascota.edad))
         ? "Debe ser un número"
         : "",
+    raza: mascota.raza.trim() === "" ? "La raza es obligatoria" : "",
     antecedentes: mascota.antecedentes.trim() === "" ? "Indica antecedentes" : ""
   };
 
@@ -137,11 +119,12 @@ const Scheduling = () => {
 
   const errorsServicio = {
     tipo: servicio.tipo ? "" : "Debes escoger un tipo de servicio",
-    subtipo: servicio.subtipo ? "" : "Debes escoger un subtipo de servicio"
+    subtipo: servicio.subtipo ? "" : "Debes escoger un subtipo de servicio",
+    fecha: servicio.fecha ? "" : "Debes seleccionar una fecha"
   };
 
   // -----------------------------
-  // Clases para validación
+  // Helpers
   // -----------------------------
   const fieldClass = (touchedObj, errorsObj, field) => {
     const show = touchedObj[field] || submitted;
@@ -151,9 +134,6 @@ const Scheduling = () => {
       : "border border-green-500 rounded p-2 w-full";
   };
 
-  // -----------------------------
-  // Handlers de cambio y blur
-  // -----------------------------
   const handleChange = (stateSetter, touchedSetter) => (e) => {
     const { name, value } = e.target;
     stateSetter((prev) => ({ ...prev, [name]: value }));
@@ -177,18 +157,13 @@ const Scheduling = () => {
     setTouchedServicio((prev) => ({ ...prev, [name]: true }));
   };
 
-  const handleBlur = (touchedSetter) => (e) => {
-    const { name } = e.target;
-    touchedSetter((prev) => ({ ...prev, [name]: true }));
-  };
-
   // -----------------------------
-  // Submit por paso
+  // Submit + Avance
   // -----------------------------
   const submitMascota = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    const valid = !errorsMascota.especie && !errorsMascota.nombre && !errorsMascota.edad && !errorsMascota.antecedentes;
+    const valid = Object.values(errorsMascota).every((err) => !err);
     if (valid) {
       setStep(2);
       setSubmitted(false);
@@ -214,16 +189,7 @@ const Scheduling = () => {
         "Registro completo ✅\n" +
           JSON.stringify({ mascota, tutor, servicio }, null, 2)
       );
-
-      // Resetear todo
-      setMascota({ especie: "", nombre: "", edad: "", raza: "", antecedentes: "" });
-      setTutor({ rut: "", nombre: "", telefono: "", direccion: "", email: "", confirmarEmail: "" });
-      setServicio({ tipo: "", subtipo: "", precio: "", fecha: "" });
-      setTouchedMascota({ especie: false, nombre: false, edad: false, raza: false, antecedentes: false });
-      setTouchedTutor({ rut: false, nombre: false, telefono: false, direccion: false, email: false, confirmarEmail: false });
-      setTouchedServicio({ tipo: false, subtipo: false, precio: false, fecha: false });
-      setStep(1);
-      setSubmitted(false);
+      setStep(1); // reinicia el flujo
     }
   };
 
@@ -231,208 +197,162 @@ const Scheduling = () => {
   // Render
   // -----------------------------
   return (
-    <div className="max-w-xl mx-auto mt-32 p-6 bg-white rounded shadow">
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
+      
       {/* Paso 1 - Mascota */}
       {step === 1 && (
-        <>
+        <form onSubmit={submitMascota} className="space-y-4" noValidate>
           <h2 className="text-2xl font-bold mb-6 text-center">Registro de Mascota</h2>
-          <form onSubmit={submitMascota} className="space-y-4" noValidate>
-            <div>
-              <label className="block mb-1 font-medium">Especie:</label>
-              <select
-                name="especie"
-                value={mascota.especie}
-                onChange={handleChange(setMascota, setTouchedMascota)}
-                onBlur={handleBlur(setTouchedMascota)}
-                className={fieldClass(touchedMascota, errorsMascota, "especie")}
-              >
-                <option value="">Selecciona especie</option>
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-              </select>
-              {(touchedMascota.especie || submitted) && errorsMascota.especie && (
-                <p className="text-red-500 text-sm mt-1">{errorsMascota.especie}</p>
-              )}
-            </div>
 
-            <div>
-              <label className="block mb-1 font-medium">Nombre:</label>
-              <input
-                type="text"
-                name="nombre"
-                value={mascota.nombre}
-                onChange={handleChange(setMascota, setTouchedMascota)}
-                onBlur={handleBlur(setTouchedMascota)}
-                className={fieldClass(touchedMascota, errorsMascota, "nombre")}
-              />
-              {(touchedMascota.nombre || submitted) && errorsMascota.nombre && (
-                <p className="text-red-500 text-sm mt-1">{errorsMascota.nombre}</p>
-              )}
-            </div>
+          <input type="text" name="especie" placeholder="Especie"
+            value={mascota.especie} onChange={handleChange(setMascota, setTouchedMascota)}
+            className={fieldClass(touchedMascota, errorsMascota, "especie")} />
+          {errorsMascota.especie && (touchedMascota.especie || submitted) && (
+            <p className="text-red-500 text-sm">{errorsMascota.especie}</p>
+          )}
 
-            <div>
-              <label className="block mb-1 font-medium">Edad:</label>
-              <input
-                type="text"
-                name="edad"
-                value={mascota.edad}
-                onChange={handleChange(setMascota, setTouchedMascota)}
-                onBlur={handleBlur(setTouchedMascota)}
-                className={fieldClass(touchedMascota, errorsMascota, "edad")}
-              />
-              {(touchedMascota.edad || submitted) && errorsMascota.edad && (
-                <p className="text-red-500 text-sm mt-1">{errorsMascota.edad}</p>
-              )}
-            </div>
+          <input type="text" name="nombre" placeholder="Nombre"
+            value={mascota.nombre} onChange={handleChange(setMascota, setTouchedMascota)}
+            className={fieldClass(touchedMascota, errorsMascota, "nombre")} />
+          {errorsMascota.nombre && (touchedMascota.nombre || submitted) && (
+            <p className="text-red-500 text-sm">{errorsMascota.nombre}</p>
+          )}
 
-            <div>
-              <label className="block mb-1 font-medium">Raza (opcional):</label>
-              <input
-                type="text"
-                name="raza"
-                value={mascota.raza}
-                onChange={handleChange(setMascota, setTouchedMascota)}
-                className="border border-gray-300 rounded p-2 w-full"
-              />
-            </div>
+          <input type="text" name="edad" placeholder="Edad"
+            value={mascota.edad} onChange={handleChange(setMascota, setTouchedMascota)}
+            className={fieldClass(touchedMascota, errorsMascota, "edad")} />
+          {errorsMascota.edad && (touchedMascota.edad || submitted) && (
+            <p className="text-red-500 text-sm">{errorsMascota.edad}</p>
+          )}
 
-            <div>
-              <label className="block mb-1 font-medium">Antecedentes:</label>
-              <textarea
-                name="antecedentes"
-                value={mascota.antecedentes}
-                onChange={handleChange(setMascota, setTouchedMascota)}
-                onBlur={handleBlur(setTouchedMascota)}
-                className={fieldClass(touchedMascota, errorsMascota, "antecedentes")}
-              />
-              {(touchedMascota.antecedentes || submitted) && errorsMascota.antecedentes && (
-                <p className="text-red-500 text-sm mt-1">{errorsMascota.antecedentes}</p>
-              )}
-            </div>
+          <input type="text" name="raza" placeholder="Raza"
+            value={mascota.raza} onChange={handleChange(setMascota, setTouchedMascota)}
+            className={fieldClass(touchedMascota, errorsMascota, "raza")} />
+          {errorsMascota.raza && (touchedMascota.raza || submitted) && (
+            <p className="text-red-500 text-sm">{errorsMascota.raza}</p>
+          )}
 
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
-            >
+          <textarea name="antecedentes" placeholder="Antecedentes médicos"
+            value={mascota.antecedentes} onChange={handleChange(setMascota, setTouchedMascota)}
+            className={fieldClass(touchedMascota, errorsMascota, "antecedentes")} />
+          {errorsMascota.antecedentes && (touchedMascota.antecedentes || submitted) && (
+            <p className="text-red-500 text-sm">{errorsMascota.antecedentes}</p>
+          )}
+
+          <div className="flex justify-end">
+            <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
               Siguiente
             </button>
-          </form>
-        </>
+          </div>
+        </form>
       )}
 
       {/* Paso 2 - Tutor */}
       {step === 2 && (
-        <>
+        <form onSubmit={submitTutor} className="space-y-4" noValidate>
           <h2 className="text-2xl font-bold mb-6 text-center">Registro de Tutor</h2>
-          <form onSubmit={submitTutor} className="space-y-4" noValidate>
-            {["rut", "nombre", "telefono", "direccion", "email", "confirmarEmail"].map((field) => (
-              <div key={field}>
-                <label className="block mb-1 font-medium">
-                  {field.charAt(0).toUpperCase() + field.slice(1).replace("confirmarEmail","Confirmar Email")}:
-                </label>
-                <input
-                  type={field.includes("email") ? "email" : "text"}
-                  name={field}
-                  value={tutor[field]}
-                  onChange={handleChange(setTutor, setTouchedTutor)}
-                  onBlur={handleBlur(setTouchedTutor)}
-                  className={fieldClass(touchedTutor, errorsTutor, field)}
-                />
-                {(touchedTutor[field] || submitted) && errorsTutor[field] && (
-                  <p className="text-red-500 text-sm mt-1">{errorsTutor[field]}</p>
-                )}
-              </div>
-            ))}
 
-            <button
-              type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
-            >
+          <input type="text" name="rut" placeholder="RUT"
+            value={tutor.rut} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "rut")} />
+          {errorsTutor.rut && (touchedTutor.rut || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.rut}</p>
+          )}
+
+          <input type="text" name="nombre" placeholder="Nombre"
+            value={tutor.nombre} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "nombre")} />
+          {errorsTutor.nombre && (touchedTutor.nombre || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.nombre}</p>
+          )}
+
+          <input type="text" name="telefono" placeholder="Teléfono (9 dígitos)"
+            value={tutor.telefono} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "telefono")} />
+          {errorsTutor.telefono && (touchedTutor.telefono || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.telefono}</p>
+          )}
+
+          <input type="text" name="direccion" placeholder="Dirección"
+            value={tutor.direccion} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "direccion")} />
+          {errorsTutor.direccion && (touchedTutor.direccion || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.direccion}</p>
+          )}
+
+          <input type="email" name="email" placeholder="Correo"
+            value={tutor.email} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "email")} />
+          {errorsTutor.email && (touchedTutor.email || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.email}</p>
+          )}
+
+          <input type="email" name="confirmarEmail" placeholder="Confirmar correo"
+            value={tutor.confirmarEmail} onChange={handleChange(setTutor, setTouchedTutor)}
+            className={fieldClass(touchedTutor, errorsTutor, "confirmarEmail")} />
+          {errorsTutor.confirmarEmail && (touchedTutor.confirmarEmail || submitted) && (
+            <p className="text-red-500 text-sm">{errorsTutor.confirmarEmail}</p>
+          )}
+
+          <div className="flex justify-between">
+            <button type="button" onClick={() => setStep(1)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+              Atrás
+            </button>
+            <button type="submit" className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded">
               Siguiente
             </button>
-          </form>
-        </>
+          </div>
+        </form>
       )}
 
       {/* Paso 3 - Servicio */}
       {step === 3 && (
-        <>
+        <form onSubmit={submitServicio} className="space-y-4" noValidate>
           <h2 className="text-2xl font-bold mb-6 text-center">Registro de Servicio</h2>
-          <form onSubmit={submitServicio} className="space-y-4" noValidate>
-            <div>
-              <label className="block mb-1 font-medium">Tipo de Servicio:</label>
-              <select
-                name="tipo"
-                value={servicio.tipo}
-                onChange={handleChangeServicio}
-                onBlur={handleBlur(setTouchedServicio)}
-                className={fieldClass(touchedServicio, errorsServicio, "tipo")}
-              >
-                <option value="">Selecciona tipo</option>
-                {Object.keys(serviciosOpciones).map((tipo) => (
-                  <option key={tipo} value={tipo}>
-                    {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
-                  </option>
-                ))}
-              </select>
-              {(touchedServicio.tipo || submitted) && errorsServicio.tipo && (
-                <p className="text-red-500 text-sm mt-1">{errorsServicio.tipo}</p>
-              )}
-            </div>
 
-            <div>
-              <label className="block mb-1 font-medium">Subtipo:</label>
-              <select
-                name="subtipo"
-                value={servicio.subtipo}
-                onChange={handleChangeServicio}
-                onBlur={handleBlur(setTouchedServicio)}
-                className={fieldClass(touchedServicio, errorsServicio, "subtipo")}
-                disabled={!servicio.tipo}
-              >
-                <option value="">Selecciona subtipo</option>
-                {servicio.tipo &&
-                  serviciosOpciones[servicio.tipo].map((s) => (
-                    <option key={s.subtipo} value={s.subtipo}>
-                      {s.subtipo} - ${s.precio}
-                    </option>
-                  ))}
-              </select>
-              {(touchedServicio.subtipo || submitted) && errorsServicio.subtipo && (
-                <p className="text-red-500 text-sm mt-1">{errorsServicio.subtipo}</p>
-              )}
-            </div>
+          <select name="tipo" value={servicio.tipo} onChange={handleChangeServicio}
+            className={fieldClass(touchedServicio, errorsServicio, "tipo")}>
+            <option value="">Seleccionar servicio</option>
+            {Object.keys(serviciosOpciones).map((tipo) => (
+              <option key={tipo} value={tipo}>{tipo}</option>
+            ))}
+          </select>
+          {errorsServicio.tipo && (touchedServicio.tipo || submitted) && (
+            <p className="text-red-500 text-sm">{errorsServicio.tipo}</p>
+          )}
 
-            <div>
-              <label className="block mb-1 font-medium">Precio:</label>
-              <input
-                type="text"
-                name="precio"
-                value={servicio.precio}
-                readOnly
-                className="border border-gray-300 rounded p-2 w-full bg-gray-100"
-              />
-            </div>
+          {servicio.tipo && (
+            <select name="subtipo" value={servicio.subtipo} onChange={handleChangeServicio}
+              className={fieldClass(touchedServicio, errorsServicio, "subtipo")}>
+              <option value="">Seleccionar subtipo</option>
+              {serviciosOpciones[servicio.tipo].map((s) => (
+                <option key={s.subtipo} value={s.subtipo}>{s.subtipo} - ${s.precio}</option>
+              ))}
+            </select>
+          )}
+          {errorsServicio.subtipo && (touchedServicio.subtipo || submitted) && (
+            <p className="text-red-500 text-sm">{errorsServicio.subtipo}</p>
+          )}
 
-            <div>
-              <label className="block mb-1 font-medium">Fecha:</label>
-              <input
-                type="date"
-                name="fecha"
-                value={servicio.fecha}
-                onChange={handleChange(setServicio, setTouchedServicio)}
-                className="border border-gray-300 rounded p-2 w-full"
-              />
-            </div>
+          <input type="date" name="fecha" value={servicio.fecha} onChange={handleChangeServicio}
+            className={fieldClass(touchedServicio, errorsServicio, "fecha")} />
+          {errorsServicio.fecha && (touchedServicio.fecha || submitted) && (
+            <p className="text-red-500 text-sm">{errorsServicio.fecha}</p>
+          )}
 
-            <button
-              type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-2"
-            >
+          {servicio.precio && (
+            <p className="text-lg font-semibold text-center">Precio: ${servicio.precio}</p>
+          )}
+
+          <div className="flex justify-between">
+            <button type="button" onClick={() => setStep(2)} className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+              Atrás
+            </button>
+            <button type="submit" className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded">
               Finalizar Registro
             </button>
-          </form>
-        </>
+          </div>
+        </form>
       )}
     </div>
   );
