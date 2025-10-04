@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { assets } from '../assets/assets.js'
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react';
 import Login from './Login.jsx';
+import Logout from './Logout.jsx';
 
 const Navbar = () => {
     const navigate = useNavigate();
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const { isAuthenticated } = useAuth0();
   
 
     useEffect(() => {
@@ -27,7 +30,8 @@ const Navbar = () => {
                 <a href="#Header" className='py-3 cursor-pointer hover:text-gray-400'>Sobre mí</a>
                 <a href="#Header" className='py-3 cursor-pointer hover:text-gray-400'>Servicios</a>
                 <a href="#Header" className='py-3 cursor-pointer hover:text-gray-400'>Contacto</a>
-                <Login/>
+                {isAuthenticated && <Logout />}
+                {!isAuthenticated && <Login />}
                 <button className="px-5 py-3 bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white border border-blue-500 hover:border-transparent rounded" onClick={() => navigate("/agendamiento")}>Agenda cita</button>
             </ul>
             <img onClick={()=> setShowMobileMenu(true)} src={assets.logoMenu} alt="" className='md:hidden w-7 cursor-pointer'/>
