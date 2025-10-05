@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import ProgressBar from "./ProgressBar";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-const Scheduling = ({ step, setStep }) => {
+const Scheduling = () => {
+  const [step, setStep] = useState(1); 
+  const totalSteps = 3;
   // -----------------------------
   // Estado Mascota
   // -----------------------------
@@ -189,6 +192,16 @@ const Scheduling = ({ step, setStep }) => {
         "Registro completo ✅\n" +
           JSON.stringify({ mascota, tutor, servicio }, null, 2)
       );
+     // Acá dejo los campos vacíos al hacer submit 
+    setMascota({ especie: "", nombre: "", edad: "", raza: "", antecedentes: "" });
+    setTouchedMascota({});
+
+    setTutor({ rut: "", nombre: "", telefono: "", direccion: "", email: "", confirmarEmail: "" });
+    setTouchedTutor({});
+
+    setServicio({ tipo: "", subtipo: "", precio: "", fecha: "" });
+    setTouchedServicio({});
+
       setStep(1); // reinicia el flujo
     }
   };
@@ -198,7 +211,7 @@ const Scheduling = ({ step, setStep }) => {
   // -----------------------------
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      
+      <ProgressBar step={step} totalSteps={totalSteps} />
       {/* Paso 1 - Mascota */}
       {step === 1 && (
         <form onSubmit={submitMascota} className="space-y-4" noValidate>
