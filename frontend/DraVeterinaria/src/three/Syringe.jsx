@@ -24,7 +24,7 @@ const Syringe = () => {
     const scene = new THREE.Scene();
 
     // Cámara
-    const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(30, w / h, 0.1, 200);
     camera.position.z = 1;
 
     // Luz
@@ -38,15 +38,15 @@ const Syringe = () => {
       "/models/medical_syringe.glb",
       (gltf) => {
         const model = gltf.scene;
-        model.scale.set(3, 3, 3);
-        model.position.set(0, 0,);
+        model.scale.set(2, 2, 2);
+        model.position.set(0, 0, 0);
         scene.add(model);
 
-        // Animación simple de rotación
+        // Animación
         const animate = () => {
           requestAnimationFrame(animate);
-          model.rotation.z += 0.001;
-          model.rotation.x += 0.01;
+          model.rotation.y += 0.001;
+          
           renderer.render(scene, camera);
         };
         animate();
@@ -71,7 +71,7 @@ const Syringe = () => {
   return (
     <div
       ref={mountRef}
-      className="h-40 w-40 cursor-pointer bg-transparent"
+      className="h-40 w-40 bg-transparent cursor-pointer flex justify-center items-center"
     />
   );
 };
