@@ -32,22 +32,7 @@ const Syringe = () => {
     light.position.set(2, 2, 3);
     scene.add(light);
 
-    const spotlight = new THREE.SpotLight(0xffffff, 2); // color, intensidad
-spotlight.position.set(5, 8, 5); // posición arriba del objeto
-spotlight.angle = Math.PI / 6; // apertura del cono de luz
-spotlight.penumbra = 0.3; // suaviza los bordes
-spotlight.decay = 2; // atenuación con la distancia
-spotlight.distance = 30; // hasta dónde llega la luz
-
-// sombras
-spotlight.castShadow = true;
-spotlight.shadow.mapSize.width = 1024;
-spotlight.shadow.mapSize.height = 1024;
-
-// Añadir al scene
-scene.add(spotlight);
-
-
+    
 
     // Loader
     const loader = new GLTFLoader();
@@ -88,7 +73,7 @@ scene.add(spotlight);
   return (
     <div
       ref={mountRef}
-      className="h-40 w-40 bg-transparent cursor-pointer flex justify-center items-center"
+      className="flex justify-center items-center w-full h-[60vh] bg-transparent"
     />
   );
 };

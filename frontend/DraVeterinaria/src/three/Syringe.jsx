@@ -71,8 +71,9 @@ const Syringe = () => {
   return (
     <div
       ref={mountRef}
-      className="h-40 w-40 bg-transparent cursor-pointer flex justify-center items-center"
+      className="flex justify-center items-center w-full h-[60vh] bg-transparent"
     />
+      
   );
 };
 

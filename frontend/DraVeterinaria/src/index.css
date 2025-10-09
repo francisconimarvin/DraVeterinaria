@@ -5,3 +5,8 @@
     font-family: "SUSE Mono", monospace;
 }
 
+ body {
+    background: #00eeff;
+    background: linear-gradient(180deg, rgba(0, 238, 255, 1) 0%, rgba(0, 119, 128, 1) 26%, rgba(2, 83, 89, 1) 49%, rgba(5, 0, 0, 1) 73%, rgba(5, 0, 0, 1) 100%);
+}
+
