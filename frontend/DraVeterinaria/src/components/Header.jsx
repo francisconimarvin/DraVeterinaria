@@ -3,7 +3,9 @@ import Navbar from './Navbar'
 
 const Header = () => {
   return (
-    <div className='text-amber-100 min-h-100 mb-4 bg-auto flex items-center w-full overflow-hidden'id='Header'>
+    <div className='text-amber-100 mb-4 bg-zinc-800 sticky top-0 z-50 flex items-center w-full overflow-hidden py-2' 
+      id='Header'>
+
       <Navbar/>
     </div>
   )
