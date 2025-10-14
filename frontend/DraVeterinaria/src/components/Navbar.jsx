@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { assets } from '../assets/assets.js'; // Asegúrate de que 'assets' contiene 'logoPatita' y 'logoMenu'
+import { assets } from '../assets/assets.js'; 
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from '@auth0/auth0-react';
 import Login from './Login.jsx';
