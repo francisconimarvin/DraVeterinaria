@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
-  // Spinner simple
+  // Icono de animacion Spinner simple
   const Spinner = () => (
     <div className="flex justify-center items-center h-[70vh]">
       <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
