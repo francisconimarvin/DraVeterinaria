@@ -1,18 +1,38 @@
-import {render, screen} from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+//Nota:
+//realizar este install
+//  npm install --save-dev @vitejs/plugin-react @testing-library/react @testing-library/jest-dom vitest
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '../Navbar.jsx';
+import { vi } from 'vitest';
 
-describe('Componente Navbar',() => {
-    it('debe contener los botones con navegación',() => {
-        render(
-        <MemoryRouter>
-            <Navbar />
-        </MemoryRouter>
-        );
-        const linkAgendamiento = screen.getAllByRole('button', { name: /Agenda cita/i }); 
-        const linkLogin = screen.getAllByRole('button', { name: /Iniciar sesión/i });
+// Mock de Auth0
+const loginWithRedirectMock = vi.fn();
+vi.mock('@auth0/auth0-react', () => ({
+  useAuth0: () => ({
+    isAuthenticated: false,        // Usuario no autenticado
+    loginWithRedirect: loginWithRedirectMock,
+  }),
+}));
 
-        expect(linkAgendamiento[0]).toBeInTheDocument();
-        expect(linkLogin[0]).toBeInTheDocument(); // el [0] es para que me devuelva el primero, tengo 2 ya que uno es para escritorio y el optro para moviles
-    })
+describe('Navbar sin autenticación', () => {
+  it('llama a loginWithRedirect al hacer clic en "Iniciar sesión"', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<Navbar />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    // Tomamos el primer botón "Iniciar sesión" (desktop)
+    const botonLogin = screen.getAllByRole('button', { name: /iniciar sesión/i })[0];
+    expect(botonLogin).toBeInTheDocument();
+
+    // Simulamos clic
+    fireEvent.click(botonLogin);
+
+    // Verificamos que loginWithRedirect fue llamado
+    expect(loginWithRedirectMock).toHaveBeenCalled();
+  });
 });
