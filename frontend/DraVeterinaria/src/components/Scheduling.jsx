@@ -202,7 +202,8 @@ const Scheduling = () => {
     setServicio({ tipo: "", subtipo: "", precio: "", fecha: "" });
     setTouchedServicio({});
 
-      setStep(1); // reinicia el flujo
+    setSubmitted(false);
+    setStep(1); // reinicia el flujo
     }
   };
 
@@ -210,7 +211,7 @@ const Scheduling = () => {
   // Render
   // -----------------------------
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
+    <div className="max-w-xl mx-auto mt-10 py-38 bg-white rounded shadow">
       <ProgressBar step={step} totalSteps={totalSteps} />
       {/* Paso 1 - Mascota */}
       {step === 1 && (

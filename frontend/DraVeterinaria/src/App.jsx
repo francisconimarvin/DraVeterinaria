@@ -6,14 +6,33 @@ import Scheduling from './components/Scheduling.jsx'
 import Footer from './components/Footer.jsx'
 import ThreeCarrusel from './three/ThreeCarrusel.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import Login from './components/Login.jsx'
+
 
 const App = () => {
   return (
       <div className='w-full overflow-hidden'>
-        <Routes>
-          <Route path="/" element={<><Header/><ThreeCarrusel/><Footer/></>}/>
-          <Route path="/agendamiento" element={<><Header/><Scheduling/><Footer/></>}/>
+      {/* Header visible siempre */}
+      <Header />
+       <main className="flex-grow">
+      {/* Contenido de la página */}
+      <Routes>
+          {/* Cada ruta abre un componente distinto */}
+          <Route path="/" element={<ThreeCarrusel />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/agendamiento"
+            element={
+              <ProtectedRoute>
+                <Scheduling />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
+        </main>
+
+      {/* Footer visible siempre */}
+      <Footer />
       </div>
       
     
