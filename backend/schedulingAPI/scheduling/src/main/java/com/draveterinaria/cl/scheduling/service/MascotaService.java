@@ -22,12 +22,16 @@ public class MascotaService {
 
 
     public Mascota save(Mascota mascota) {
-        // Valida que el tutor exista antes de guardar
-        if (mascota.getTutor() == null ||
-                !tutorRepository.existsById(mascota.getTutor().getId())) {
-            throw new RuntimeException("Tutor no encontrado para la mascota");
+        if (mascota.getTutor() != null && mascota.getTutor().getId() != null) {
+            return tutorRepository.findById(mascota.getTutor().getId())
+                    .map(tutor -> {
+                        mascota.setTutor(tutor);
+                        return mascotaRepository.save(mascota);
+                    })
+                    .orElseThrow(() -> new RuntimeException("Tutor no encontrado para la mascota"));
+        } else {
+            throw new RuntimeException("Debe asignar un tutor existente a la mascota");
         }
-        return mascotaRepository.save(mascota);
     }
 
     public List<Mascota> findAll() {

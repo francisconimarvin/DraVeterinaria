@@ -17,6 +17,10 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
     // Buscar servicios por fecha
     List<Servicio> findByFechaServicio(java.time.LocalDate fechaServicio);
 
+    // Buscar Servicio por nombre
+    List<Servicio> findByNombreServicioContainingIgnoreCase(String nombreServicio);
+
+
     // Buscar servicios por tipo (vacuna, baño, control, etc.)
     List<Servicio> findByTipoServicioIgnoreCase(String tipo);
 

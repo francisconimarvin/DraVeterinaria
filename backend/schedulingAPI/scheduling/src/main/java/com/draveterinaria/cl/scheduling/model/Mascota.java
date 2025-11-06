@@ -1,11 +1,14 @@
 package com.draveterinaria.cl.scheduling.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 
 @Entity  // Marca esta clase como una entidad JPA.
 @Table(name= "mascotas")  // Especifica el nombre de la tabla en la base de datos.
@@ -31,7 +34,11 @@ public class Mascota {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tutor", nullable = false, foreignKey = @ForeignKey(name = "fk_masc_tut"))
-    @JsonIgnore
+    @JsonBackReference
     private Tutor tutor;
+
+    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Servicio> servicios;
 }
 

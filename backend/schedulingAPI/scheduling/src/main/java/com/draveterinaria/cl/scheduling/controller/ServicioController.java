@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/servicios")
+@RequestMapping("api/servicios")
 @CrossOrigin(origins = "http://localhost:5173") // para aceptar los request del frontend
 public class ServicioController {
 
@@ -34,7 +34,7 @@ public class ServicioController {
                 .orElseGet(() -> ResponseEntity.notFound().build()); // si no existe, devuelve 404
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public Servicio createServicio(@RequestBody Servicio servicio) {
         return servicioService.save(servicio);
     }
