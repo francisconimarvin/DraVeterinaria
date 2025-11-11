@@ -1,62 +1,66 @@
 package com.draveterinaria.cl.scheduling.controller;
 
-
 import com.draveterinaria.cl.scheduling.model.Servicio;
 import com.draveterinaria.cl.scheduling.service.ServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/servicios")
-@CrossOrigin(origins = "http://localhost:5173") // para aceptar los request del frontend
+@RequestMapping("/api/servicios")
+@CrossOrigin(origins = "*")
 public class ServicioController {
 
-    private final ServicioService servicioService;
-
     @Autowired
-    public ServicioController(ServicioService servicioService) {
-        this.servicioService = servicioService;
-    }
+    private ServicioService servicioService;
 
     @GetMapping
-    public List<Servicio> getAllServicios() {
-        return servicioService.findAll();
+    public ResponseEntity<List<Servicio>> getAllServicios() {
+        return ResponseEntity.ok(servicioService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Servicio> getServicioById(@PathVariable Integer id) {
+    public ResponseEntity<Servicio> getServicioById(@PathVariable Long id) {
         return servicioService.findById(id)
-                .map(ResponseEntity::ok) // si lo encuentra, devuelve 200 OK con el objeto
-                .orElseGet(() -> ResponseEntity.notFound().build()); // si no existe, devuelve 404
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public Servicio createServicio(@RequestBody Servicio servicio) {
-        return servicioService.save(servicio);
+    @GetMapping("/mascota/{mascotaId}")
+    public ResponseEntity<List<Servicio>> getByMascotaId(@PathVariable Long mascotaId) {
+        return ResponseEntity.ok(servicioService.findByMascotaId(mascotaId));
+    }
+
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<List<Servicio>> getByTutorId(@PathVariable Long tutorId) {
+        return ResponseEntity.ok(servicioService.findByTutorId(tutorId));
+    }
+
+    @GetMapping("/tutor/{tutorId}/fecha")
+    public ResponseEntity<List<Servicio>> getByTutorAndFecha(
+            @PathVariable Long tutorId,
+            @RequestParam String fecha) {
+        LocalDateTime fechaParseada = LocalDateTime.parse(fecha);
+        return ResponseEntity.ok(servicioService.findByTutorAndFecha(tutorId, fechaParseada));
+    }
+
+    @PostMapping
+    public ResponseEntity<Servicio> createServicio(@RequestBody Servicio servicio) {
+        return ResponseEntity.ok(servicioService.save(servicio));
     }
 
     @PutMapping("/{id}")
-    public Servicio updateServicio(@PathVariable Integer id, @RequestBody Servicio servicio) {
-        servicio.setId(id);
-        return servicioService.save(servicio);
+    public ResponseEntity<Servicio> updateServicio(@PathVariable Long id, @RequestBody Servicio servicio) {
+        servicio.setIdServicio(id);
+        return ResponseEntity.ok(servicioService.save(servicio));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteServicio(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteServicio(@PathVariable Long id) {
         servicioService.deleteById(id);
-    }
-
-    // ✅ Buscar servicios de un tutor en una fecha específica
-    @GetMapping("/tutor/{tutorId}/fecha/{fecha}")
-    public List<Servicio> getServiciosByTutorAndFecha(
-            @PathVariable Integer tutorId,
-            @PathVariable String fecha) {
-        LocalDate localDate = LocalDate.parse(fecha);
-        return servicioService.findByTutorAndFecha(tutorId, localDate);
+        return ResponseEntity.noContent().build();
     }
 }
-

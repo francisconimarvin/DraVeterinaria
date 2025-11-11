@@ -20,10 +20,9 @@ public class MascotaService {
     @Autowired
     private TutorRepository tutorRepository;
 
-
     public Mascota save(Mascota mascota) {
-        if (mascota.getTutor() != null && mascota.getTutor().getId() != null) {
-            return tutorRepository.findById(mascota.getTutor().getId())
+        if (mascota.getTutor() != null && mascota.getTutor().getIdTutor() != null) {
+            return tutorRepository.findById(mascota.getTutor().getIdTutor())
                     .map(tutor -> {
                         mascota.setTutor(tutor);
                         return mascotaRepository.save(mascota);
@@ -38,24 +37,21 @@ public class MascotaService {
         return mascotaRepository.findAll();
     }
 
-    public Optional<Mascota> findById(Integer id) {
+    public Optional<Mascota> findById(Long id) {
         return mascotaRepository.findById(id);
     }
 
     public List<Mascota> findByNombre(String nombre) {
-        return mascotaRepository.findByNombreContainingIgnoreCase(nombre);
+        return mascotaRepository.findByNombreMascotaContainingIgnoreCase(nombre);
     }
 
-
-    public List<Mascota> findByTutorId(Integer tutorId) {
-        return mascotaRepository.findByTutorId(tutorId);
+    public List<Mascota> findByTutorId(Long tutorId) {
+        return mascotaRepository.findByTutorIdTutor(tutorId);
     }
 
-
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         mascotaRepository.deleteById(id);
     }
-
 
     public void delete(Mascota mascota) {
         mascotaRepository.delete(mascota);

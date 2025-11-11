@@ -3,44 +3,55 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
-@Entity  // Marca esta clase como una entidad JPA.
-@Table(name= "servicios")  // Especifica el nombre de la tabla en la base de datos.
-@Data  // Genera automáticamente getters, setters, equals, hashCode y toString.
-@NoArgsConstructor  // Genera un constructor sin argumentos.
-@AllArgsConstructor  // Genera un constructor con un argumento por cada campo en la clase.
+@Entity
+@Table(name = "SERVICIO")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Servicio {
-    @Id  // Especifica el identificador primario.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // El valor del ID se generará automáticamente.
-    private Integer id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable = true)  // Define las restricciones para la columna en la tabla.
-    private LocalDate fechaServicio;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_seq")
+    @SequenceGenerator(name = "service_seq", sequenceName = "ISEQ$$_107406", allocationSize = 1)
+    @Column(name = "ID_SERVICIO")
+    private Long idServicio;
 
-    @JsonFormat(pattern = "HH:mm:ss")
-    @Column(nullable=true)  // Esta columna puede ser nula.
-    private LocalTime horaServicio;
-
-    @Column(length = 255,nullable=false)  // Esta columna no puede ser nula.
-    private String nombreServicio;
-
-
-    @Column(length = 255,nullable=false)  // Esta columna no puede ser nula.
-    private String tipoServicio;
-
+    // Relación con MASCOTA
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_mascota", nullable = false, foreignKey = @ForeignKey(name = "fk_ate_pac"))
-    @JsonBackReference
+    @JoinColumn(name = "ID_MASCOTA", nullable = false)
     private Mascota mascota;
+
+    @Column(name = "DURACION")
+    private String duracion; // Oracle INTERVAL no tiene tipo directo en Java, puedes mapearlo como String
+
+    @Column(name = "FECHA")
+    private LocalDateTime fecha;
+
+    @Column(name = "COSTO", precision = 10, scale = 2, nullable = false)
+    private BigDecimal costo;
+
+    @Column(name = "ID_AGENDA")
+    private Long idAgenda;
+
+    @Column(name = "ID_TIPO_SERVICIO", nullable = false)
+    private Long idTipoServicio;
+
+    @Column(name = "ID_FACTURA")
+    private Long idFactura;
+
+    @Column(name = "ESTADO_PAGO", length = 20)
+    private String estadoPago = "PENDIENTE";
 }
 
 

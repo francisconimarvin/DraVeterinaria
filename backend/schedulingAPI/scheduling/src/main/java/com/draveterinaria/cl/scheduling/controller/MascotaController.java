@@ -10,58 +10,48 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mascotas")
-@CrossOrigin(origins = "http://localhost:5173") // Ajusta el puerto de tu frontend
+@CrossOrigin(origins = "*")
 public class MascotaController {
 
     @Autowired
     private MascotaService mascotaService;
-
 
     @GetMapping
     public ResponseEntity<List<Mascota>> getAllMascotas() {
         return ResponseEntity.ok(mascotaService.findAll());
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMascotaById(@PathVariable Integer id) {
+    public ResponseEntity<Mascota> getMascotaById(@PathVariable Long id) {
         return mascotaService.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-
-    @GetMapping("/nombre/{nombre}")
-    public ResponseEntity<List<Mascota>> getMascotaByNombre(@PathVariable String nombre) {
-        List<Mascota> mascotas = mascotaService.findByNombre(nombre);
-        return mascotas.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(mascotas);
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Mascota>> buscarPorNombre(@RequestParam String nombre) {
+        return ResponseEntity.ok(mascotaService.findByNombre(nombre));
     }
-
 
     @GetMapping("/tutor/{tutorId}")
-    public ResponseEntity<List<Mascota>> getMascotasByTutor(@PathVariable Integer tutorId) {
-        List<Mascota> mascotas = mascotaService.findByTutorId(tutorId);
-        return mascotas.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(mascotas);
+    public ResponseEntity<List<Mascota>> getByTutorId(@PathVariable Long tutorId) {
+        return ResponseEntity.ok(mascotaService.findByTutorId(tutorId));
     }
 
     @PostMapping
-    public ResponseEntity<?> saveMascota(@RequestBody Mascota mascota) {
-        try {
-            Mascota saved = mascotaService.save(mascota);
-            return ResponseEntity.ok(saved);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<Mascota> createMascota(@RequestBody Mascota mascota) {
+        return ResponseEntity.ok(mascotaService.save(mascota));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Mascota> updateMascota(@PathVariable Long id, @RequestBody Mascota mascota) {
+        mascota.setIdMascota(id);
+        return ResponseEntity.ok(mascotaService.save(mascota));
+    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMascota(@PathVariable Integer id) {
-        if (mascotaService.findById(id).isPresent()) {
-            mascotaService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteMascota(@PathVariable Long id) {
+        mascotaService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

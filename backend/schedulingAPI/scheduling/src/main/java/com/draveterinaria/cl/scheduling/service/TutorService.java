@@ -16,19 +16,19 @@ public class TutorService {
     @Autowired
     private TutorRepository tutorRepository;
 
-    public Optional<Tutor> findByRun(String run) {
-        return tutorRepository.findByRun(run);
+    public Optional<Tutor> findByRunTutor(String runTutor) {
+        return tutorRepository.findByRunTutor(runTutor);
     }
 
-    public Optional<Tutor> findByCorreo(String correo) {
-        return tutorRepository.findByCorreo(correo);
+    public Optional<Tutor> findByEmail(String email) {
+        return tutorRepository.findByEmail(email);
     }
 
     public List<Tutor> findAll() {
         return tutorRepository.findAll();
     }
 
-    public Tutor findById(int id) {
+    public Tutor findById(Long id) {
         return tutorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tutor no encontrado con ID: " + id));
     }
@@ -37,8 +37,8 @@ public class TutorService {
         return tutorRepository.save(tutor);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         tutorRepository.deleteById(id);
     }
-
 }
+

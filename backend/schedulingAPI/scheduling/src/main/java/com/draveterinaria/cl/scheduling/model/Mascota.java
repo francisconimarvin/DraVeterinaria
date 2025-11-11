@@ -4,41 +4,41 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-@Entity  // Marca esta clase como una entidad JPA.
-@Table(name= "mascotas")  // Especifica el nombre de la tabla en la base de datos.
-@Data  // Genera automáticamente getters, setters, equals, hashCode y toString.
-@NoArgsConstructor  // Genera un constructor sin argumentos.
-@AllArgsConstructor  // Genera un constructor con un argumento por cada campo en la clase.
+@Entity
+@Table(name = "MASCOTA")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Mascota {
-    @Id  // Especifica el identificador primario.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // El valor del ID se generará automáticamente.
-    private Integer id;
 
-    @Column(nullable = true)  // Define las restricciones para la columna en la tabla.
-    private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mascota_seq")
+    @SequenceGenerator(name = "mascota_seq", sequenceName = "ID_MASC_SEQ", allocationSize = 1)
+    @Column(name = "ID_MASCOTA")
+    private Long idMascota;
 
-    @Column(nullable = true)  // Esta columna puede ser nula.
-    private Integer edad;
+    @Column(name = "NOMBRE_MASCOTA", nullable = false, length = 255)
+    private String nombreMascota;
 
-    @Column(length = 255, nullable = false)  // Esta columna no puede ser nula.
-    private String especie;
+    @Column(name = "FECHA_NACIMIENTO")
+    private LocalDate fechaNacimiento;
 
-    @Column(length = 255, nullable = false)  // Esta columna no puede ser nula.
-    private String raza;
+    @Column(name = "SEXO", nullable = false, length = 1)
+    private String sexo;
 
+    @Column(name = "ID_ESPECIE", nullable = false)
+    private Long idEspecie;
+
+    // Relación con TUTOR
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tutor", nullable = false, foreignKey = @ForeignKey(name = "fk_masc_tut"))
-    @JsonBackReference
+    @JoinColumn(name = "ID_TUTOR", nullable = false)
     private Tutor tutor;
-
-    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Servicio> servicios;
 }
 

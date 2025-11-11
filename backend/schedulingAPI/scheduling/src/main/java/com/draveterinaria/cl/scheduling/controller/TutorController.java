@@ -1,7 +1,5 @@
 package com.draveterinaria.cl.scheduling.controller;
 
-
-
 import com.draveterinaria.cl.scheduling.model.Tutor;
 import com.draveterinaria.cl.scheduling.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,60 +10,50 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tutores")
-@CrossOrigin(origins = "http://localhost:5173") // Ajusta al puerto de tu frontend
+@CrossOrigin(origins = "*")
 public class TutorController {
 
     @Autowired
     private TutorService tutorService;
 
-    // 🔹 Obtener todos los tutores
     @GetMapping
     public ResponseEntity<List<Tutor>> getAllTutores() {
         return ResponseEntity.ok(tutorService.findAll());
     }
 
-    // 🔹 Buscar tutor por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTutorById(@PathVariable int id) {
-        try {
-            Tutor tutor = tutorService.findById(id);
-            return ResponseEntity.ok(tutor);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Tutor> getTutorById(@PathVariable Long id) {
+        return ResponseEntity.ok(tutorService.findById(id));
     }
 
-    // 🔹 Buscar tutor por RUN
-    @GetMapping("/run/{run}")
-    public ResponseEntity<?> getTutorByRun(@PathVariable String run) {
-        return tutorService.findByRun(run)
+    @GetMapping("/run/{runTutor}")
+    public ResponseEntity<Tutor> getTutorByRun(@PathVariable String runTutor) {
+        return tutorService.findByRunTutor(runTutor)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // 🔹 Buscar tutor por correo
-    @GetMapping("/correo/{correo}")
-    public ResponseEntity<?> getTutorByCorreo(@PathVariable String correo) {
-        return tutorService.findByCorreo(correo)
+    @GetMapping("/email")
+    public ResponseEntity<Tutor> getTutorByEmail(@RequestParam String email) {
+        return tutorService.findByEmail(email)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // 🔹 Crear o actualizar tutor
     @PostMapping
-    public ResponseEntity<Tutor> saveTutor(@RequestBody Tutor tutor) {
-        Tutor savedTutor = tutorService.save(tutor);
-        return ResponseEntity.ok(savedTutor);
+    public ResponseEntity<Tutor> createTutor(@RequestBody Tutor tutor) {
+        return ResponseEntity.ok(tutorService.save(tutor));
     }
 
-    // 🔹 Eliminar tutor por ID
+    @PutMapping("/{id}")
+    public ResponseEntity<Tutor> updateTutor(@PathVariable Long id, @RequestBody Tutor tutor) {
+        tutor.setIdTutor(id);
+        return ResponseEntity.ok(tutorService.save(tutor));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTutor(@PathVariable int id) {
-        try {
-            tutorService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteTutor(@PathVariable Long id) {
+        tutorService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
