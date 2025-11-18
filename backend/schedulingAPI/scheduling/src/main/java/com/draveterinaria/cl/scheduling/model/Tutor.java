@@ -1,6 +1,7 @@
 package com.draveterinaria.cl.scheduling.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -50,4 +51,9 @@ public class Tutor {
 
     @Column(name = "EMAIL", length = 50)
     private String email;
+
+
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Mascota> mascotas;
 }

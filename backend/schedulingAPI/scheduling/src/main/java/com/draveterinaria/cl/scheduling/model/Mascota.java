@@ -33,12 +33,18 @@ public class Mascota {
     @Column(name = "SEXO", nullable = false, length = 1)
     private String sexo;
 
-    @Column(name = "ID_ESPECIE", nullable = false)
-    private Long idEspecie;
+   // @Column(name = "ID_ESPECIE", nullable = false)
+   // private Long idEspecie;
 
-    // Relación con TUTOR
+    // En el campo 'tutor'
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TUTOR", nullable = false)
+    @JsonBackReference
     private Tutor tutor;
-}
 
+    //Relación con Especie
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="ID_ESPECIE", nullable = false)
+    private Especie especie;
+
+}
