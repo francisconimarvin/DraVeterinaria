@@ -21,7 +21,7 @@ public class Servicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_seq")
-    @SequenceGenerator(name = "service_seq", sequenceName = "ISEQ$$_107406", allocationSize = 1)
+    @SequenceGenerator(name = "service_seq", sequenceName = "seq_servicio", allocationSize = 1)
     @Column(name = "ID_SERVICIO")
     private Long idServicio;
 
@@ -31,7 +31,7 @@ public class Servicio {
     private Mascota mascota;
 
     @Column(name = "DURACION")
-    private String duracion; // Oracle INTERVAL no tiene tipo directo en Java, puedes mapearlo como String
+    private String duracion;
 
     @Column(name = "FECHA")
     private LocalDateTime fecha;
@@ -42,8 +42,10 @@ public class Servicio {
     @Column(name = "ID_AGENDA")
     private Long idAgenda;
 
-    @Column(name = "ID_TIPO_SERVICIO", nullable = false)
-    private Long idTipoServicio;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_SUBTIPO", nullable = false) // Usa el nombre de columna que creaste en SQL
+    private SubtipoServicio subtipo;
 
     @Column(name = "ID_FACTURA")
     private Long idFactura;

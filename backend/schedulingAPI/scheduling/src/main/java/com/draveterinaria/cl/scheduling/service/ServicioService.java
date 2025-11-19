@@ -1,8 +1,11 @@
 package com.draveterinaria.cl.scheduling.service;
 
+import com.draveterinaria.cl.scheduling.model.Mascota;
 import com.draveterinaria.cl.scheduling.model.Servicio;
+import com.draveterinaria.cl.scheduling.model.SubtipoServicio;
 import com.draveterinaria.cl.scheduling.repository.MascotaRepository;
 import com.draveterinaria.cl.scheduling.repository.ServicioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +24,23 @@ public class ServicioService {
     @Autowired
     private MascotaRepository mascotaRepository;
 
-    // ✅ Crear o actualizar un servicio
+
     public Servicio save(Servicio servicio) {
+
+        // 1. VALIDACIÓN DEL OBJETO MASCOTA
+        // Si el objeto Mascota es null O si el ID dentro del objeto Mascota es null
         if (servicio.getMascota() == null || servicio.getMascota().getIdMascota() == null) {
             throw new RuntimeException("Debe asignar una mascota válida al servicio");
         }
 
+        // 2. VERIFICACIÓN DE EXISTENCIA
+        // Usamos el método .getIdMascota() de la entidad Mascota
         if (!mascotaRepository.existsById(servicio.getMascota().getIdMascota())) {
             throw new RuntimeException("Mascota no encontrada para el servicio");
         }
 
+        // 3. Guardado
+        // Nota: Necesitas añadir una validación similar para SubtipoServicio
         return servicioRepository.save(servicio);
     }
 

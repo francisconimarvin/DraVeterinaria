@@ -3,6 +3,7 @@ package com.draveterinaria.cl.scheduling.controller;
 import com.draveterinaria.cl.scheduling.model.Servicio;
 import com.draveterinaria.cl.scheduling.service.ServicioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,9 +48,19 @@ public class ServicioController {
         return ResponseEntity.ok(servicioService.findByTutorAndFecha(tutorId, fechaParseada));
     }
 
-    @PostMapping
-    public ResponseEntity<Servicio> createServicio(@RequestBody Servicio servicio) {
-        return ResponseEntity.ok(servicioService.save(servicio));
+    // Suponiendo que este es el método en su ServicioController.java
+    @PostMapping("/servicios") // Ajuste la URL si es necesario
+    public ResponseEntity<?> createServicio(@RequestBody Servicio servicio) {
+        try {
+            // El @RequestBody mapea directamente el JSON anterior al objeto Servicio
+            Servicio nuevoServicio = servicioService.save(servicio);
+            return new ResponseEntity<>(nuevoServicio, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            // Captura las RuntimeException lanzadas en el Service
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error interno al guardar.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
