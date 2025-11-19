@@ -26,8 +26,12 @@ public class TipoServicio {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_serv_seq")
     @SequenceGenerator(name = "tipo_serv_seq", sequenceName = "ISEQ$$_107503", allocationSize = 1)
     @Column(name = "ID_TIPO_SERVICIO")
-    private Long id;
+    private Long idTipo;
 
     @Column(name = "TIPO_SERVICIO", length = 100, nullable = false)
     private String tipoServicio;
+
+    @OneToMany(mappedBy = "tipoServicio", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<SubtipoServicio> subtipos;
 }
