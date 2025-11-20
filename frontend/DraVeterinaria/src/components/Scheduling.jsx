@@ -24,6 +24,9 @@ const Scheduling = () => {
   const [tutor, setTutor] = useState({
     rut: "",
     nombre: "",
+    snombre:"",
+    apaterno:"",
+    amaterno:"",
     telefono: "",
     direccion: "",
     email: "",
@@ -120,6 +123,7 @@ const Scheduling = () => {
         ? "Formato incorrecto. Ej: 12345667-1"
         : "",
     nombre: tutor.nombre.trim() === "" ? "El nombre es obligatorio" : "",
+    apaterno: tutor.apaterno.trim() === "" ? "El apellido es obligatorio" : "",
     telefono:
       tutor.telefono.trim() === ""
         ? "El número de teléfono es obligatorio"
@@ -217,6 +221,9 @@ const Scheduling = () => {
           runTutor: tutor.rut.split("-")[0],
           dvRun: tutor.rut.split("-")[1],
           nombreTutor: tutor.nombre,
+          snombreTutor:tutor.snombre,
+          apPaternoTutor:tutor.apaterno,
+          aMaternoTutor:tutor.amaterno,
           telefono: tutor.telefono,
           direccion: tutor.direccion,
           email: tutor.email
@@ -247,16 +254,10 @@ const Scheduling = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          mascota: { idMascota: mascotaData.idMascota },
-          
-        
+          mascota: { idMascota: mascotaData.idMascota },               
           subtipo: { idSubtipo: servicio.subtipo }, 
-          
-          
-          costo: servicio.precio,
-          
-      
-          fecha: `${servicio.fecha}T10:00:00`
+          costo: servicio.precio,
+          fecha: `${servicio.fecha}T10:00:00`
           
        
         })
@@ -276,6 +277,9 @@ const Scheduling = () => {
       setTutor({
         rut: "",
         nombre: "",
+        snombre:"",
+        apaterno:"",
+        amaterno:"",
         telefono: "",
         direccion: "",
         email: "",
@@ -455,7 +459,7 @@ const Scheduling = () => {
 
       {/* PASO 2  */}
       {step === 2 && (
-        <div classname="px-6">
+        <div className="px-6">
         <form onSubmit={submitTutor} className="space-y-4">
           <h2 className="text-2xl font-bold text-center mb-6">Registro Tutor</h2>
             <input
@@ -481,6 +485,43 @@ const Scheduling = () => {
             {(touchedTutor.nombre|| submitted) &&errorsTutor.nombre && (
               <p className="text-red-500 text-sm">{errorsTutor.nombre}</p>
             )}
+
+            <input
+              type="text"
+              name="snombre"
+              placeholder="Segundo Nombre (OPCIONAL)"
+              value={tutor.snombre}
+              onChange={handleChange(setTutor, setTouchedTutor)}
+              className={fieldClass(touchedTutor, errorsTutor, "snombre")}
+            />
+            {(touchedTutor.snombre|| submitted) &&errorsTutor.snombre && (
+              <p className="text-red-500 text-sm">{errorsTutor.snombre}</p>
+            )}
+
+            <input
+              type="text"
+              name="apaterno"
+              placeholder="Apellido Paterno"
+              value={tutor.apaterno}
+              onChange={handleChange(setTutor, setTouchedTutor)}
+              className={fieldClass(touchedTutor, errorsTutor, "apaterno")}
+            />
+            {(touchedTutor.apaterno|| submitted) &&errorsTutor.apaterno && (
+              <p className="text-red-500 text-sm">{errorsTutor.apaterno}</p>
+            )}
+
+            <input
+              type="text"
+              name="amaterno"
+              placeholder="Apellido Materno (OPCIONAL)"
+              value={tutor.amaterno}
+              onChange={handleChange(setTutor, setTouchedTutor)}
+              className={fieldClass(touchedTutor, errorsTutor, "amaterno")}
+            />
+            {(touchedTutor.amaterno|| submitted) &&errorsTutor.amaterno && (
+              <p className="text-red-500 text-sm">{errorsTutor.amaterno}</p>
+            )}
+
 
             <input
               type="text"

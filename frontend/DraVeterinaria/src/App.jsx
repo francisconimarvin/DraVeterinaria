@@ -11,7 +11,7 @@ import Login from './components/Login.jsx'
 
 const App = () => {
   return (
-      <div className='w-full overflow-hidden'>
+      <div className='flex flex-col min-h-screen w-full overflow-hidden'>
       {/* Header visible siempre */}
       <Header />
        <main className="flex-grow">
