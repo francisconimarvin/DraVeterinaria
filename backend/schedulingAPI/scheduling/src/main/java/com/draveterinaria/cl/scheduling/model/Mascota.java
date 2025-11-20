@@ -39,7 +39,7 @@ public class Mascota {
    // private Long idEspecie;
 
     // En el campo 'tutor'
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_TUTOR", nullable = false)
     @JsonBackReference
     private Tutor tutor;

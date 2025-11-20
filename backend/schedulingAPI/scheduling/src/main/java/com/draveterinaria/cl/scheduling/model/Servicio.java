@@ -26,12 +26,10 @@ public class Servicio {
     private Long idServicio;
 
     // Relación con MASCOTA
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_MASCOTA", nullable = false)
     private Mascota mascota;
 
-    @Column(name = "DURACION")
-    private String duracion;
 
     @Column(name = "FECHA")
     private LocalDateTime fecha;
@@ -43,7 +41,7 @@ public class Servicio {
     private Long idAgenda;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_SUBTIPO", nullable = false) // Usa el nombre de columna que creaste en SQL
     private SubtipoServicio subtipo;
 

@@ -5,6 +5,7 @@ import com.draveterinaria.cl.scheduling.model.Servicio;
 import com.draveterinaria.cl.scheduling.model.SubtipoServicio;
 import com.draveterinaria.cl.scheduling.repository.MascotaRepository;
 import com.draveterinaria.cl.scheduling.repository.ServicioRepository;
+import com.draveterinaria.cl.scheduling.repository.SubtipoServicioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,25 +23,37 @@ public class ServicioService {
     private ServicioRepository servicioRepository;
 
     @Autowired
+    private SubtipoServicioRepository subtipoServicioRepository;
+
+    @Autowired
     private MascotaRepository mascotaRepository;
 
 
     public Servicio save(Servicio servicio) {
-
-        // 1. VALIDACIÓN DEL OBJETO MASCOTA
-        // Si el objeto Mascota es null O si el ID dentro del objeto Mascota es null
         if (servicio.getMascota() == null || servicio.getMascota().getIdMascota() == null) {
             throw new RuntimeException("Debe asignar una mascota válida al servicio");
         }
 
-        // 2. VERIFICACIÓN DE EXISTENCIA
-        // Usamos el método .getIdMascota() de la entidad Mascota
-        if (!mascotaRepository.existsById(servicio.getMascota().getIdMascota())) {
-            throw new RuntimeException("Mascota no encontrada para el servicio");
+        Mascota mascotaReal = mascotaRepository.findById(servicio.getMascota().getIdMascota())
+                .orElseThrow(() -> new RuntimeException(
+                        "Mascota no encontrada con ID " + servicio.getMascota().getIdMascota()
+                ));
+        servicio.setMascota(mascotaReal);
+
+
+        if (servicio.getSubtipo() == null || servicio.getSubtipo().getIdSubtipo() == null) {
+            throw new RuntimeException("Debe asignar un subtipo válido al servicio");
         }
 
-        // 3. Guardado
-        // Nota: Necesitas añadir una validación similar para SubtipoServicio
+
+        SubtipoServicio subtipoReal = subtipoServicioRepository.findById(servicio.getSubtipo().getIdSubtipo())
+                .orElseThrow(() -> new RuntimeException(
+                        "Subtipo de servicio no encontrado con ID " + servicio.getSubtipo().getIdSubtipo()
+                ));
+
+        servicio.setSubtipo(subtipoReal);
+
+
         return servicioRepository.save(servicio);
     }
 
