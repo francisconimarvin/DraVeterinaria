@@ -24,7 +24,7 @@ public class TipoServicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_serv_seq")
-    @SequenceGenerator(name = "tipo_serv_seq", sequenceName = "ISEQ$$_107503", allocationSize = 1)
+    @SequenceGenerator(name = "tipo_serv_seq", sequenceName = "seq_tiposervicio", allocationSize = 1)
     @Column(name = "ID_TIPO_SERVICIO")
     private Long idTipo;
 
