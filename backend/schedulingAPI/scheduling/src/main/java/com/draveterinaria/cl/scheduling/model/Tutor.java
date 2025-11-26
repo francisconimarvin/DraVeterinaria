@@ -41,7 +41,7 @@ public class Tutor {
     private String apPaternoTutor;
 
     @Column(name = "AMATERNO_TUTOR", length = 20)
-    private String amMaternoTutor;
+    private String aMaternoTutor;
 
     @Column(name = "TLF", length = 14)
     private String telefono;
