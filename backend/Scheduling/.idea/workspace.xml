@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="80f9e9c6-c067-4605-8eb7-1cb478b1beaf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/repository/MascotaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/repository/ServicioRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/repository/TutorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/service/MascotaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/service/ServicioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/service/TutorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/model/Mascota.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/model/Servicio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/model/Tutor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/repository/MascotaRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/repository/ServicioRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/repository/TutorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/service/MascotaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/service/ServicioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../schedulingAPI/scheduling/src/main/java/com/draveterinaria/cl/scheduling/service/TutorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/SchedulingApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Mascota.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Mascota.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Servicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Servicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Tutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/model/Tutor.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sevelez&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/francisconimarvin/DraVeterinaria.git&quot;,
+    &quot;accountId&quot;: &quot;b431dda3-0f0b-46c1-83f3-49eb38fa8d64&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="34zqBfUgOzeMAjL8AM9SdgMyxrc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.SchedulingApplication.executor": "Run",
+    "git-widget-placeholder": "develop",
+    "last_opened_file_path": "C:/Users/svele/React/DraVeterinaria/backend/Scheduling",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/svele/React/DraVeterinaria/backend/Scheduling/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="SchedulingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Scheduling" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.draveterinaria.cl.SchedulingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80f9e9c6-c067-4605-8eb7-1cb478b1beaf" name="Changes" comment="" />
+      <created>1762226616490</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762226616490</updated>
+      <workItem from="1762226617707" duration="1796000" />
+      <workItem from="1762228449201" duration="5000" />
+      <workItem from="1762447422096" duration="5928000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/draveterinaria/cl/SchedulingApplication.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
