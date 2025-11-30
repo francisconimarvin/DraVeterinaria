@@ -35,11 +35,12 @@ const App = () => {
           <Route
   path="/agendamiento"
   element={
-    <ProtectedRoute role="TUTOR">
+    <ProtectedRoute>
       <Scheduling />
     </ProtectedRoute>
   }
 />
+
 
           {/* Pagina Admin */}
           <Route

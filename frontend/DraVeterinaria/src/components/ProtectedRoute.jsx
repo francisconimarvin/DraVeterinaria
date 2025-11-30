@@ -5,13 +5,16 @@ const ProtectedRoute = ({ children, role }) => {
   const token = localStorage.getItem("token");
   const userRole = localStorage.getItem("role");
 
-  // Si no hay token → redirige a login
-  if (!token) return <Navigate to="/login" />;
+  if (!token) {
+    console.warn("ProtectedRoute: No hay token, redirigiendo a /login");
+    return <Navigate to="/login" replace />;
+  }
 
-  // Si se pasa un rol y no coincide → redirige a login
-  if (role && userRole !== role) return <Navigate to="/login" />;
+  if (role && userRole !== role) {
+    console.warn(`ProtectedRoute: Rol incorrecto: ${userRole} != ${role}`);
+    return <Navigate to="/login" replace />;
+  }
 
-  // Usuario loggeado permitido
   return children;
 };
 
