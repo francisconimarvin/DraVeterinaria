@@ -1,41 +1,61 @@
 import React from 'react'
 import Header from './components/Header.jsx'
 import Services from './components/Services.jsx'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Scheduling from './components/Scheduling.jsx'
 import Footer from './components/Footer.jsx'
 import ThreeCarrusel from './three/ThreeCarrusel.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Login from './components/Login.jsx'
-
+import AdminDashboard from './components/AdminDashboard.jsx'
 
 const App = () => {
   return (
-      <div className='flex flex-col min-h-screen w-full overflow-hidden'>
-      {/* Header visible siempre */}
+    <div className='flex flex-col min-h-screen w-full overflow-hidden'>
       <Header />
-       <main className="flex-grow">
-      {/* Contenido de la página */}
-      <Routes>
-          {/* Cada ruta abre un componente distinto */}
-          <Route path="/" element={<ThreeCarrusel />} />
+
+      <main className="flex-grow">
+        <Routes>
+
+         
+          <Route path="/" element={<Navigate to="/login" />} />
+
           <Route path="/login" element={<Login />} />
+
+          {/* Pagina Tutor */}
           <Route
-            path="/agendamiento"
+            path="/home"
             element={
-              <ProtectedRoute>
-                <Scheduling />
+              <ProtectedRoute role="TUTOR">
+                <ThreeCarrusel />
               </ProtectedRoute>
             }
           />
-        </Routes>
-        </main>
 
-      {/* Footer visible siempre */}
+          <Route
+  path="/agendamiento"
+  element={
+    <ProtectedRoute role="TUTOR">
+      <Scheduling />
+    </ProtectedRoute>
+  }
+/>
+
+          {/* Pagina Admin */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="ADMIN">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+        </Routes>
+      </main>
+
       <Footer />
-      </div>
-      
-    
+    </div>
   )
 }
 

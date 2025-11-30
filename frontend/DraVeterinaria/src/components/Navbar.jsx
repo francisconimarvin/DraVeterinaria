@@ -1,20 +1,29 @@
-
 import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets.js'; 
-import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
-import Login from './Login.jsx';
-import Logout from './Logout.jsx';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const { isAuthenticated } = useAuth0();
+  const [role, setRole] = useState(null);
+  const navigate = useNavigate();
+
+  // Leer el rol del usuario al montar el componente
+  useEffect(() => {
+    const storedRole = localStorage.getItem('role');
+    setRole(storedRole);
+  }, []);
 
   // Deshabilitar scroll al abrir menú móvil
   useEffect(() => {
     document.body.style.overflow = showMobileMenu ? 'hidden' : 'auto';
     return () => { document.body.style.overflow = 'auto'; }
   }, [showMobileMenu]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/login');
+  };
 
   return (
     <div className='container mx-auto flex justify-between items-center px-6 md:px-20 lg:px-32 bg-transparent gap-4 w-full'>
@@ -30,16 +39,28 @@ const Navbar = () => {
 
       {/* Menú escritorio */}
       <ul className='hidden md:flex gap-7 items-center'> 
-        <Link to="/" className='py-3 cursor-pointer hover:text-gray-400'>Home</Link>
+        <Link to={role === "TUTOR" ? "/home" : "/admin"} className='py-3 cursor-pointer hover:text-gray-400'>Home</Link>
         <Link to="/" className='py-3 cursor-pointer hover:text-gray-400'>Sobre mí</Link>
         <Link to="/" className='py-3 cursor-pointer hover:text-gray-400'>Servicios</Link>
         <Link to="/" className='py-3 cursor-pointer hover:text-gray-400'>Contacto</Link>
-        {isAuthenticated ? <Logout /> : <Login />}
-        <Link to="/agendamiento">
-          <button className="px-5 py-3 bg-transparent hover:bg-blue-500 text-blue-300 hover:text-white border border-blue-300 hover:border-transparent rounded">
-            Agenda cita
-          </button>
+
+        {/* Botón Agenda cita */}
+        <Link 
+          to="/agendamiento"
+          className="px-5 py-3 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Agenda cita
         </Link>
+
+        {/* Botón logout solo para TUTOR */}
+        {role === "TUTOR" && (
+          <button
+            onClick={handleLogout}
+            className="px-5 py-3 bg-red-500 hover:bg-red-600 text-white rounded"
+          >
+            Cerrar sesión
+          </button>
+        )}
       </ul>
 
       {/* Menú móvil */}
@@ -56,15 +77,30 @@ const Navbar = () => {
 
       <div className={`fixed top-0 right-0 h-full w-64 bg-zinc-700 p-6 shadow-xl transition-transform transform ${showMobileMenu ? 'translate-x-0' : 'translate-x-full'} md:hidden z-50`}>
         <ul className='flex flex-col gap-6 mt-16 text-xl'>
-          <Link to="/" onClick={() => setShowMobileMenu(false)} className='cursor-pointer hover:text-gray-400'>Home</Link>
+          <Link to={role === "TUTOR" ? "/home" : "/admin"} onClick={() => setShowMobileMenu(false)} className='cursor-pointer hover:text-gray-400'>Home</Link>
           <Link to="/" onClick={() => setShowMobileMenu(false)} className='cursor-pointer hover:text-gray-400'>Sobre mí</Link>
           <Link to="/" onClick={() => setShowMobileMenu(false)} className='cursor-pointer hover:text-gray-400'>Servicios</Link>
           <Link to="/" onClick={() => setShowMobileMenu(false)} className='cursor-pointer hover:text-gray-400'>Contacto</Link>
           <hr className="border-zinc-500 my-2" />
-          {isAuthenticated ? <Logout /> : <Login />}
-          <Link to="/agendamiento" onClick={() => setShowMobileMenu(false)}>
-            <button className="mt-4 px-5 py-3 bg-blue-500 text-white rounded">Agenda cita</button>
+
+          {/* Botón Agenda cita */}
+          <Link 
+            to="/agendamiento" 
+            onClick={() => setShowMobileMenu(false)}
+            className="mt-4 px-5 py-3 bg-blue-500 text-white rounded text-center block"
+          >
+            Agenda cita
           </Link>
+
+          {/* Botón logout solo para TUTOR en móvil */}
+          {role === "TUTOR" && (
+            <button
+              onClick={handleLogout}
+              className="px-5 py-3 bg-red-500 hover:bg-red-600 text-white rounded mt-4"
+            >
+              Cerrar sesión
+            </button>
+          )}
         </ul>
       </div>
 
