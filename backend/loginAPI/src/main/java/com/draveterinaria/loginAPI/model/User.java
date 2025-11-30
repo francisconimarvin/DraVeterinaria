@@ -2,10 +2,10 @@ package com.draveterinaria.loginAPI.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "USERS", schema = "ADMIN")
+@Table(name = "USERS")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,24 +14,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
     private Long userId;
 
-    @Column(name = "EMAIL", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "PASSWORD_HASH", nullable = false)
+    @Column(nullable = false)
     private String passwordHash;
 
-    @Column(name = "ROLE", nullable = false)
+    @Column(nullable = false)
     private String role;
 
-    @Column(name = "ENTITY_ID")
     private Long entityId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "CREATED_AT", updatable = false)
-    private Date createdAt;
-
-    
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

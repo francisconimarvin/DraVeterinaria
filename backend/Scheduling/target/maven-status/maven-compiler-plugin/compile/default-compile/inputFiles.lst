@@ -1,0 +1,11 @@
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/SchedulingApplication.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/WebConfig.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/model/Mascota.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/model/Servicio.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/model/Tutor.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/repository/MascotaRepository.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/repository/ServicioRepository.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/repository/TutorRepository.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/service/MascotaService.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/service/ServicioService.java
+/mnt/hdd/DraVeterinaria/backend/Scheduling/src/main/java/com/draveterinaria/cl/service/TutorService.java
