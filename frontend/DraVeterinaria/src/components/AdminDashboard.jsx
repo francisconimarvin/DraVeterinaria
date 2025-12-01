@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import * as XLSX from 'xlsx';
+import ServiceManager from './ServiceManager';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -86,7 +87,7 @@ const AdminDashboard = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-4">Dashboard Admin</h1>
-      <p className="mb-4">Aquí se hace todo como ADMIN.</p>
+      
 
       <div className="w-full max-w-xl mb-8 bg-white p-4 rounded shadow">
         {especies.length > 0 && mascotas.length > 0 ? (
@@ -109,6 +110,7 @@ const AdminDashboard = () => {
       >
         Cerrar sesión
       </button>
+      <ServiceManager />
     </div>
   );
 };
