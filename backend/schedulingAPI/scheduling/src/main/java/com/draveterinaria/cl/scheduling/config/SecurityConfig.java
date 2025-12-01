@@ -58,9 +58,9 @@ public class SecurityConfig {
 
 
 
-/* 
 
-package com.draveterinaria.cl.scheduling.config;
+
+/*package com.draveterinaria.cl.scheduling.config;
 
 
 import com.draveterinaria.cl.scheduling.filter.JwtAuthFilter;
@@ -94,7 +94,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
-    // ⭐️ Agregamos las dependencias necesarias:
+    //  Agregamos las dependencias necesarias:
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -168,5 +168,4 @@ public class SecurityConfig {
     // @Bean
     // public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 }
-
 */
