@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class JwtService {
 
     // ⭐️ DEBE COINCIDIR con la clave de loginAPI
-    private static final String SECRET_KEY = "MiSuperSecretoJWT123";
+    private static final String SECRET_KEY = "OTRO_SECRET_LOCAL";
 
     private final Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
 
