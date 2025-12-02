@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class ApplicationConfig {
 
-
+    // ⭐️ El bean se define aquí, fuera de SecurityConfig
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
